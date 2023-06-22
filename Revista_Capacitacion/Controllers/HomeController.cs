@@ -9,7 +9,7 @@ namespace Revista_Capacitacion.Controllers
 {
     public class HomeController : Controller
     {
-        CAPACITACIONEntities5 _context = new CAPACITACIONEntities5();
+        CAPACITACIONEntities6 _context = new CAPACITACIONEntities6();
         public ActionResult Index()
         {
             var listofData = _context.REVISTAS.ToList();
@@ -23,7 +23,7 @@ namespace Revista_Capacitacion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(REVISTAS model)
+        public ActionResult Create(REVISTA model)
         {
             _context.REVISTAS.Add(model);
             _context.SaveChanges();
@@ -37,7 +37,7 @@ namespace Revista_Capacitacion.Controllers
             return View(data);
         }
         [HttpPost]
-        public ActionResult Edit(REVISTAS Model)
+        public ActionResult Edit(REVISTA Model)
         {
             var data = _context.REVISTAS.Where(x => x.ID_REV == Model.ID_REV).FirstOrDefault();
             if (data != null)
@@ -53,17 +53,17 @@ namespace Revista_Capacitacion.Controllers
 
             return RedirectToAction("index");
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int ID_REV)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
             _context.REVISTAS.Remove(data);
             _context.SaveChanges();
             ViewBag.Messsage = "Record Delete Successfully";
             return RedirectToAction("index");
         }
-        public ActionResult Detail(int id)
+        public ActionResult Details(int ID_REV)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
             return View(data);
         }
 

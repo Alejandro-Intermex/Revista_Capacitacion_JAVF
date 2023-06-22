@@ -13,12 +13,10 @@ namespace Revista_Capacitacion
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CAPACITACIONEntities5 : DbContext
+    public partial class CAPACITACIONEntities6 : DbContext
     {
-        internal readonly object Employees;
-
-        public CAPACITACIONEntities5()
-            : base("name=CAPACITACIONEntities5")
+        public CAPACITACIONEntities6()
+            : base("name=CAPACITACIONEntities6")
         {
         }
     
@@ -28,7 +26,7 @@ namespace Revista_Capacitacion
         }
     
         public virtual DbSet<M_CATEGORIAS> M_CATEGORIAS { get; set; }
-        public virtual DbSet<REVISTAS> REVISTAS { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<REVISTA> REVISTAS { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

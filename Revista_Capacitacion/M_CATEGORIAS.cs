@@ -17,13 +17,13 @@ namespace Revista_Capacitacion
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public M_CATEGORIAS()
         {
-            this.REVISTAS = new HashSet<REVISTAS>();
+            this.REVISTAS = new HashSet<REVISTA>();
         }
     
         public int ID_CAT { get; set; }
         public string NOMBRE_CAT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REVISTAS> REVISTAS { get; set; }
+        public virtual ICollection<REVISTA> REVISTAS { get; set; }
     }
 }

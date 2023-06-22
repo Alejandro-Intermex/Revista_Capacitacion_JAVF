@@ -12,16 +12,12 @@ namespace Revista_Capacitacion
     using System;
     using System.Collections.Generic;
     
-    public partial class REVISTAS
+    public partial class sysdiagram
     {
-        public int ID_REV { get; set; }
-        public string TITULO_REV { get; set; }
-        public string CB { get; set; }
-        public Nullable<System.DateTime> FECHA_CIRCULACION { get; set; }
-        public Nullable<int> ID_CAT { get; set; }
-        public Nullable<System.DateTime> ROW_CREATE { get; set; }
-        public Nullable<double> PRECIO { get; set; }
-    
-        public virtual M_CATEGORIAS M_CATEGORIAS { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

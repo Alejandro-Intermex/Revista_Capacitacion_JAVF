@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="ID_REV" />
           </Key>
-          <Property Name="ID_REV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_REV" Type="int" Nullable="false" />
           <Property Name="TITULO_REV" Type="varchar" MaxLength="50" />
           <Property Name="CB" Type="varchar" MaxLength="15" />
           <Property Name="FECHA_CIRCULACION" Type="date" />
@@ -68,11 +68,11 @@
           <Property Name="NOMBRE_CAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="REVISTAS" Relationship="Self.FK_ID_CAT" FromRole="M_CATEGORIAS" ToRole="REVISTAS" />
         </EntityType>
-        <EntityType Name="REVISTAS">
+        <EntityType Name="REVISTA">
           <Key>
             <PropertyRef Name="ID_REV" />
           </Key>
-          <Property Name="ID_REV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_REV" Type="Int32" Nullable="false" />
           <Property Name="TITULO_REV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CB" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_CIRCULACION" Type="DateTime" Precision="0" />
@@ -81,7 +81,7 @@
           <Property Name="PRECIO" Type="Double" />
           <NavigationProperty Name="M_CATEGORIAS" Relationship="Self.FK_ID_CAT" FromRole="REVISTAS" ToRole="M_CATEGORIAS" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -93,7 +93,7 @@
         </EntityType>
         <Association Name="FK_ID_CAT">
           <End Role="M_CATEGORIAS" Type="Self.M_CATEGORIAS" Multiplicity="0..1" />
-          <End Role="REVISTAS" Type="Self.REVISTAS" Multiplicity="*" />
+          <End Role="REVISTAS" Type="Self.REVISTA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="M_CATEGORIAS">
               <PropertyRef Name="ID_CAT" />
@@ -103,10 +103,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CAPACITACIONEntities5" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CAPACITACIONEntities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="M_CATEGORIAS" EntityType="Self.M_CATEGORIAS" />
-          <EntitySet Name="REVISTAS" EntityType="Self.REVISTAS" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="REVISTAS" EntityType="Self.REVISTA" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_ID_CAT" Association="Self.FK_ID_CAT">
             <End Role="M_CATEGORIAS" EntitySet="M_CATEGORIAS" />
             <End Role="REVISTAS" EntitySet="REVISTAS" />
@@ -117,7 +117,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CAPACITACIONModelStoreContainer" CdmEntityContainer="CAPACITACIONEntities5">
+        <EntityContainerMapping StorageEntityContainer="CAPACITACIONModelStoreContainer" CdmEntityContainer="CAPACITACIONEntities6">
           <EntitySetMapping Name="M_CATEGORIAS">
             <EntityTypeMapping TypeName="CAPACITACIONModel.M_CATEGORIAS">
               <MappingFragment StoreEntitySet="M_CATEGORIAS">
@@ -127,7 +127,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="REVISTAS">
-            <EntityTypeMapping TypeName="CAPACITACIONModel.REVISTAS">
+            <EntityTypeMapping TypeName="CAPACITACIONModel.REVISTA">
               <MappingFragment StoreEntitySet="REVISTAS">
                 <ScalarProperty Name="ID_REV" ColumnName="ID_REV" />
                 <ScalarProperty Name="TITULO_REV" ColumnName="TITULO_REV" />
@@ -140,7 +140,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CAPACITACIONModel.sysdiagrams">
+            <EntityTypeMapping TypeName="CAPACITACIONModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -164,7 +164,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
