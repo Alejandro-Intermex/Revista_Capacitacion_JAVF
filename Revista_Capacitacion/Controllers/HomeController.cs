@@ -31,9 +31,9 @@ namespace Revista_Capacitacion.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int ID_REV)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
             return View(data);
         }
         [HttpPost]
