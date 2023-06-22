@@ -28,7 +28,7 @@ namespace Revista_Capacitacion.Controllers
             _context.REVISTAS.Add(model);
             _context.SaveChanges();
             ViewBag.Message = "Data Insert Successfully";
-            return View();
+            return RedirectToAction("index");
         }
         [HttpGet]
         public ActionResult Edit(int ID_REV)
