@@ -39,7 +39,7 @@
                 <input type="text" class="form-control" id="inputprecio" placeholder="Precio">
             </div>
         </div>
-        <button type="submit" class="btn btn-danger">Cancelar</button>
+        @Html.ActionLink("Cancelar", "Index", "Home", new { area = "" }, new { @class = "btn btn-danger" })
         <button type="submit" class="btn btn-success">Guardar</button>
     </form>
 
