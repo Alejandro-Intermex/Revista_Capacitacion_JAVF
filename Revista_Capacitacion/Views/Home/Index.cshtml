@@ -3,9 +3,14 @@
 }
 
 <div>
-    <button type="button" class="btn btn-primary">  @Html.ActionLink("Crear", "Crear")</button>
+    <br />
+    <br />
+    <button type="button" class="btn btn-primary"><span class="icon-bar"></span></button>
+    @Html.ActionLink("Crear", "Crear", "Home", new { area = "" }, new { @class = "btn btn-primary" })
+    <br />
 </div>
 <div>
+    <br />
     <table class="table">
         <thead class="thead-dark">
             <tr>
