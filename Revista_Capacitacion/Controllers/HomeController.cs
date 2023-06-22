@@ -20,7 +20,7 @@ namespace Revista_Capacitacion.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Crear()
         {
             ViewBag.Message = "Your contact page.";
 
