@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace Revista_Capacitacion.Controllers
         CAPACITACIONEntities5 _context = new CAPACITACIONEntities5();
         public ActionResult Index()
         {
-            var listofData = _context.Employees.ToList();
+            var listofData = _context.REVISTAS.ToList();
             return View(listofData);
         }
 
@@ -24,7 +25,7 @@ namespace Revista_Capacitacion.Controllers
         [HttpPost]
         public ActionResult Create(REVISTAS model)
         {
-            _context.Employees.Add(model);
+            _context.REVISTAS.Add(model);
             _context.SaveChanges();
             ViewBag.Message = "Data Insert Successfully";
             return View();
@@ -32,21 +33,21 @@ namespace Revista_Capacitacion.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var data = _context.Employees.Where(x => x.EmployeeId == id).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
             return View(data);
         }
         [HttpPost]
         public ActionResult Edit(REVISTAS Model)
         {
-            var data = _context.Employees.Where(x => x.EmployeeId == Model.ID_REV).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == Model.ID_REV).FirstOrDefault();
             if (data != null)
             {
-                data.EmployeeCity = Model.TITULO_REV;
-                data.EmployeeName = Model.CB;
-                data.EmployeeSalary = Model.FECHA_CIRCULACION;
-                data.Employeeidcat = Model.ID_CAT;
-                data.Employeerow = Model.ROW_CREATE;
-                data.Employeeprecio = Model.PRECIO;
+                data.TITULO_REV = Model.TITULO_REV;
+                data.CB = Model.CB;
+                data.FECHA_CIRCULACION = Model.FECHA_CIRCULACION;
+                data.ID_CAT = Model.ID_CAT;
+                data.ROW_CREATE = Model.ROW_CREATE;
+                data.PRECIO = Model.PRECIO;
                 _context.SaveChanges();
             }
 
@@ -54,15 +55,15 @@ namespace Revista_Capacitacion.Controllers
         }
         public ActionResult Delete(int id)
         {
-            var data = _context.Employees.Where(x => x.EmployeeId == id).FirstOrDefault();
-            _context.Employees.Remove(data);
+            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
+            _context.REVISTAS.Remove(data);
             _context.SaveChanges();
             ViewBag.Messsage = "Record Delete Successfully";
             return RedirectToAction("index");
         }
         public ActionResult Detail(int id)
         {
-            var data = _context.Employees.Where(x => x.EmployeeId == id).FirstOrDefault();
+            var data = _context.REVISTAS.Where(x => x.ID_REV == id).FirstOrDefault();
             return View(data);
         }
 
