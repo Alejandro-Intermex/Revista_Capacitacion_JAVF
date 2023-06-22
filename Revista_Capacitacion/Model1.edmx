@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="ID_REV" />
           </Key>
-          <Property Name="ID_REV" Type="int" Nullable="false" />
+          <Property Name="ID_REV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TITULO_REV" Type="varchar" MaxLength="50" />
           <Property Name="CB" Type="varchar" MaxLength="15" />
           <Property Name="FECHA_CIRCULACION" Type="date" />
@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="ID_REV" />
           </Key>
-          <Property Name="ID_REV" Type="Int32" Nullable="false" />
+          <Property Name="ID_REV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TITULO_REV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CB" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_CIRCULACION" Type="DateTime" Precision="0" />
@@ -103,7 +103,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CAPACITACIONEntities6" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CAPACITACIONEntities7" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="M_CATEGORIAS" EntityType="Self.M_CATEGORIAS" />
           <EntitySet Name="REVISTAS" EntityType="Self.REVISTA" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -117,7 +117,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CAPACITACIONModelStoreContainer" CdmEntityContainer="CAPACITACIONEntities6">
+        <EntityContainerMapping StorageEntityContainer="CAPACITACIONModelStoreContainer" CdmEntityContainer="CAPACITACIONEntities7">
           <EntitySetMapping Name="M_CATEGORIAS">
             <EntityTypeMapping TypeName="CAPACITACIONModel.M_CATEGORIAS">
               <MappingFragment StoreEntitySet="M_CATEGORIAS">

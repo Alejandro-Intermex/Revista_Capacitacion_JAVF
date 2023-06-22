@@ -13,10 +13,10 @@ namespace Revista_Capacitacion
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CAPACITACIONEntities6 : DbContext
+    public partial class CAPACITACIONEntities7 : DbContext
     {
-        public CAPACITACIONEntities6()
-            : base("name=CAPACITACIONEntities6")
+        public CAPACITACIONEntities7()
+            : base("name=CAPACITACIONEntities7")
         {
         }
     

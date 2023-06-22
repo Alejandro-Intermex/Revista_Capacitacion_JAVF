@@ -9,7 +9,7 @@ namespace Revista_Capacitacion.Controllers
 {
     public class HomeController : Controller
     {
-        CAPACITACIONEntities6 _context = new CAPACITACIONEntities6();
+        CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
         public ActionResult Index()
         {
             var listofData = _context.REVISTAS.ToList();
