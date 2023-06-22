@@ -1,38 +1,71 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Revista_Capacitacion.REVISTAS>
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<div>
-    <br />
-    <br />
-    
-    @Html.ActionLink("Crear", "Crear", "Home", new { area = "" }, new { @class = "btn btn-primary" })
-    <br />
-</div>
-<div>
-    <br />
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titulo</th>
-                <th scope="col">CB</th>
-                <th scope="col">Fecha de Circulacion</th>
-                <th scope="col">Cat_ID</th>
-                <th scope="col">Row_Created</th>
-                <th scope="col">Precio</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_REV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TITULO_REV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_CIRCULACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_CAT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ROW_CREATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_REV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TITULO_REV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA_CIRCULACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_CAT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ROW_CREATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+
+
