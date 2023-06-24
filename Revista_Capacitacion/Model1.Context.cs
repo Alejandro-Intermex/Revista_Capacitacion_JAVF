@@ -26,7 +26,7 @@ namespace Revista_Capacitacion
         }
     
         public virtual DbSet<M_CATEGORIAS> M_CATEGORIAS { get; set; }
-        public virtual DbSet<REVISTA> REVISTAS { get; set; }
+        public virtual DbSet<REVISTAS> REVISTAS { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

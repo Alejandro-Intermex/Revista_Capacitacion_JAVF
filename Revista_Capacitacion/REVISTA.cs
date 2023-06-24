@@ -12,7 +12,7 @@ namespace Revista_Capacitacion
     using System;
     using System.Collections.Generic;
     
-    public partial class REVISTA
+    public partial class REVISTAS
     {
         public int ID_REV { get; set; }
         public string TITULO_REV { get; set; }
@@ -21,7 +21,9 @@ namespace Revista_Capacitacion
         public Nullable<int> ID_CAT { get; set; }
         public Nullable<System.DateTime> ROW_CREATE { get; set; }
         public Nullable<double> PRECIO { get; set; }
-    
+
+        public List<REVISTAS> ShowallCustomer { get; set; }
+
         public virtual M_CATEGORIAS M_CATEGORIAS { get; set; }
     }
 }

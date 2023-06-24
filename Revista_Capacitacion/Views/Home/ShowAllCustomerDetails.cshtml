@@ -1,10 +1,4 @@
-﻿@model IEnumerable<Revista_Capacitacion.REVISTA>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+﻿@model IEnumerable<Revista_Capacitacion.REVISTAS>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -59,13 +53,11 @@
             @Html.DisplayFor(modelItem => item.PRECIO)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  ID_REV =item.ID_REV  }) |
-            @Html.ActionLink("Details", "Details", new { ID_REV =item.ID_REV }) |
-            @Html.ActionLink("Delete", "Delete", new {  ID_REV =item.ID_REV })
+            @Html.ActionLink("Edit", "Edit", new { ID_REV = item.ID_REV }) |
+            @Html.ActionLink("Details", "Details", new { ID_REV = item.ID_REV }) |
+            @Html.ActionLink("Delete", "Delete", new { ID_REV = item.ID_REV })
         </td>
     </tr>
 }
 
 </table>
-
-

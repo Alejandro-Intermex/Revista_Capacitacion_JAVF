@@ -5,15 +5,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Revista_Capacitacion.Controllers
+namespace Revista_Capacitacion.Services
 {
     public class HomeController : Controller
     {
-        CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
-        public ActionResult Index()
+        // CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
+
+        [HttpGet]
+        public ActionResult ShowAllCustomerDetails()
         {
-            var listofData = _context.REVISTAS.ToList();
-            return View(listofData);
+            ConnectionDB showlist = new ConnectionDB();
+            ModelState.Clear();
+            return View(showlist.ShowAllCustomerDetails());
         }
 
         [HttpGet]
@@ -23,49 +26,63 @@ namespace Revista_Capacitacion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(REVISTA model)
+        public ActionResult Create(REVISTAS model)
         {
-            _context.REVISTAS.Add(model);
-            _context.SaveChanges();
-            ViewBag.Message = "Data Insert Successfully";
-            return RedirectToAction("index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ConnectionDB emprepo = new ConnectionDB();
+                    if (emprepo.Create(model))
+                    {
+                        ViewBag.message = "revista creada";
+                    }
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpGet]
-        public ActionResult Edit(int ID_REV)
+        public ActionResult Edit(int id)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
-            return View(data);
+            ConnectionDB emprepo = new ConnectionDB();
+
+            return View(emprepo.ShowAllCustomerDetails().Find(model => model.ID_REV == id));
         }
         [HttpPost]
-        public ActionResult Edit(REVISTA Model)
+        public ActionResult Edit(int id, REVISTAS obj)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == Model.ID_REV).FirstOrDefault();
-            if (data != null)
+            try
             {
-                data.TITULO_REV = Model.TITULO_REV;
-                data.CB = Model.CB;
-                data.FECHA_CIRCULACION = Model.FECHA_CIRCULACION;
-                data.ID_CAT = Model.ID_CAT;
-                data.ROW_CREATE = Model.ROW_CREATE;
-                data.PRECIO = Model.PRECIO;
-                _context.SaveChanges();
+                ConnectionDB emprepo = new ConnectionDB();
+                emprepo.Edit(obj);
+
+                return RedirectToAction("ShowAllCustomerDetails");
             }
-
-            return RedirectToAction("index");
+            catch
+            {
+                return View();
+            }
         }
-        public ActionResult Delete(int ID_REV)
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
-            _context.REVISTAS.Remove(data);
-            _context.SaveChanges();
-            ViewBag.Messsage = "Record Delete Successfully";
-            return RedirectToAction("index");
+            try
+            {
+                ConnectionDB emprepo = new ConnectionDB();
+                if (emprepo.Delete(id))
+                {
+                    ViewBag.AlertMsg = "Revista borrada";
+                }
+                return RedirectToAction("ShowAllCustomerDetails");
+            }
+            catch
+            {
+                return View();
+            }
         }
-        public ActionResult Details(int ID_REV)
-        {
-            var data = _context.REVISTAS.Where(x => x.ID_REV == ID_REV).FirstOrDefault();
-            return View(data);
-        }
-
     }
 }
