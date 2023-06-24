@@ -38,7 +38,7 @@ namespace Revista_Capacitacion.Services
                         ViewBag.message = "revista creada";
                     }
                 }
-                return Index();
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -60,7 +60,7 @@ namespace Revista_Capacitacion.Services
                 ConnectionDB emprepo = new ConnectionDB();
                 emprepo.Edit(obj);
 
-                return RedirectToAction("ShowAllCustomerDetails");
+                return RedirectToAction("Index");
             }
             catch
             {
