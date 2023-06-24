@@ -46,7 +46,7 @@ namespace Revista_Capacitacion.Services
             }
         }
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = 0)
         {
             ConnectionDB emprepo = new ConnectionDB();
 
@@ -60,6 +60,8 @@ namespace Revista_Capacitacion.Services
                 ConnectionDB emprepo = new ConnectionDB();
                 emprepo.Edit(obj);
 
+
+                //return View(emprepo.Index().Find(model => model.ID_REV == id));
                 return RedirectToAction("Index");
             }
             catch
@@ -77,12 +79,13 @@ namespace Revista_Capacitacion.Services
                 {
                     ViewBag.AlertMsg = "Revista borrada";
                 }
-                return RedirectToAction("ShowAllCustomerDetails");
+                return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
         }
+
     }
 }

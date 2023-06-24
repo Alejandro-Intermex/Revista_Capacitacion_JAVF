@@ -79,6 +79,7 @@ namespace Revista_Capacitacion.Services
             connection();
             SqlCommand com = new SqlCommand("SpCrudRevista", conec);
             com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@ID_REV", obj.ID_REV);
             com.Parameters.AddWithValue("@TITULO_REV", obj.TITULO_REV);
             com.Parameters.AddWithValue("@CB", obj.CB);
             com.Parameters.AddWithValue("@FECHA_CIRCULACION", obj.FECHA_CIRCULACION);
@@ -102,7 +103,7 @@ namespace Revista_Capacitacion.Services
             connection();
             SqlCommand com = new SqlCommand("SpCrudRevista", conec);
             com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@id_rev", id);
+            com.Parameters.AddWithValue("@ID_REV", id);
             com.Parameters.AddWithValue("@Accion", "Eliminar");
             conec.Open();
             int i = com.ExecuteNonQuery();
