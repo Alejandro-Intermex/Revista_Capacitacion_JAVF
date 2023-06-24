@@ -87,5 +87,12 @@ namespace Revista_Capacitacion.Services
             }
         }
 
+        public ActionResult Details()
+        {
+            ConnectionDB showlist = new ConnectionDB();
+            ModelState.Clear();
+            return RedirectToAction("Details");
+        }
+
     }
 }
