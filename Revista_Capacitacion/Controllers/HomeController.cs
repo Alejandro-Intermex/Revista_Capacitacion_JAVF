@@ -12,11 +12,11 @@ namespace Revista_Capacitacion.Services
         // CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
 
         [HttpGet]
-        public ActionResult ShowAllCustomerDetails()
+        public ActionResult Index()
         {
             ConnectionDB showlist = new ConnectionDB();
             ModelState.Clear();
-            return View(showlist.ShowAllCustomerDetails());
+            return View(showlist.Index());
         }
 
         [HttpGet]
@@ -38,7 +38,7 @@ namespace Revista_Capacitacion.Services
                         ViewBag.message = "revista creada";
                     }
                 }
-                return View();
+                return Index();
             }
             catch
             {
@@ -50,7 +50,7 @@ namespace Revista_Capacitacion.Services
         {
             ConnectionDB emprepo = new ConnectionDB();
 
-            return View(emprepo.ShowAllCustomerDetails().Find(model => model.ID_REV == id));
+            return View(emprepo.Index().Find(model => model.ID_REV == id));
         }
         [HttpPost]
         public ActionResult Edit(int id, REVISTAS obj)
