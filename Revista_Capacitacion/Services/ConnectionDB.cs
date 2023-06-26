@@ -73,6 +73,8 @@ namespace Revista_Capacitacion.Services
 
             return EmpList;
         }
+        //TITULO = Convert.IsDBNull(dr["TITULO"]) ? "" : Convert.ToString(dr["TITULO"]),
+
         public bool Edit(REVISTAS obj)
         {
             connection();

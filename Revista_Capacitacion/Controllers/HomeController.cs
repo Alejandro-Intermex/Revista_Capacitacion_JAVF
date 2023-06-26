@@ -27,25 +27,12 @@ namespace Revista_Capacitacion.Services
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(REVISTAS model)
+
+        public bool Create2(REVISTAS model)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    ConnectionDB emprepo = new ConnectionDB();
-                    if (emprepo.Create(model))
-                    {
-                        ViewBag.message = "revista creada";
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ConnectionDB cnx = new ConnectionDB();
+            bool bandera = cnx.Create(model);
+            return bandera;
         }
 
         [HttpGet]

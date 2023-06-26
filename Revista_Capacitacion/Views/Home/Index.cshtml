@@ -94,26 +94,29 @@
                             let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
                             let ID_CAT = $("#ID_CAT").val();
                             let PRECIO = $("#PRECIO").val();
-                        
-                        console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
 
-                        $.ajax({
-                            url: 'Create',
-                            type: 'POST',
-                            data: {
-                                TITULO_REV: TITULO_REV,
-                                CB: CB,
-                                FECHA_CIRCULACION: FECHA_CIRCULACION,
-                                ID_CAT: ID_CAT,
-                                PRECIO: PRECIO
-                            },
-                            contentType: 'application/json,charsery utf 8',
-                            dataType: 'json',
-                            success: function (info) {
-                                console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
-                                window.location.href = '/Home/Index';
-                            }
+                        console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
+                        var data = {
+                            TITULO_REV: TITULO_REV,
+                            CB: CB,
+                            FECHA_CIRCULACION: FECHA_CIRCULACION,
+                            ID_CAT: ID_CAT,
+                            PRECIO: PRECIO
+                        }
+                        var url =  "@Url.Action("Create2", "Home")";
+
+                        console.log(data)
+
+                        $.post(url, data).done(function (e) {
+                            console.log(e);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Revista guardada con éxito!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
                         })
+
                     });
 
                     if (id > 0) {
