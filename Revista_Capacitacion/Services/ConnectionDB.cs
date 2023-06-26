@@ -28,7 +28,6 @@ namespace Revista_Capacitacion.Services
             com.Parameters.AddWithValue("@CB", obj.CB);
             com.Parameters.AddWithValue("@FECHA_CIRCULACION", obj.FECHA_CIRCULACION);
             com.Parameters.AddWithValue("@ID_CAT", obj.ID_CAT);
-            com.Parameters.AddWithValue("@ROW_CREATE", obj.ROW_CREATE);
             com.Parameters.AddWithValue("@PRECIO", obj.PRECIO);
             com.Parameters.AddWithValue("@Accion", "Insertar");
             conec.Open();

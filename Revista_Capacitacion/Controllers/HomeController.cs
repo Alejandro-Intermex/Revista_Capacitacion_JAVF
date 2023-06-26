@@ -9,9 +9,11 @@ namespace Revista_Capacitacion.Services
 {
     public class HomeController : Controller
     {
-        // CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
 
-        [HttpGet]
+        ConnectionDB revDB = new ConnectionDB();
+
+        // CAPACITACIONEntities7 _context = new CAPACITACIONEntities7();
+        ////[HttpGet]
         public ActionResult Index()
         {
             ConnectionDB showlist = new ConnectionDB();
@@ -45,6 +47,7 @@ namespace Revista_Capacitacion.Services
                 return View();
             }
         }
+
         [HttpGet]
         public ActionResult Edit(int id = 0)
         {
@@ -61,7 +64,7 @@ namespace Revista_Capacitacion.Services
                 emprepo.Edit(obj);
 
 
-                //return View(emprepo.Index().Find(model => model.ID_REV == id));
+                //return View(emprepo.Index().Find(model => model.ID_REV == id));E
                 return RedirectToAction("Index");
             }
             catch
