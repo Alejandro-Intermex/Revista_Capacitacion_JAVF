@@ -55,7 +55,7 @@
         </td>
         <td>
             <button class="btn btn-primary" onclick="mostrareditar(@item.ID_REV)">Editar</button> |
-            <button class="btn btn-primary" onclick="mostrareliminar()">Eliminar</button>
+            <button class="btn btn-primary" onclick="mostrareliminar(@item.ID_REV)">Eliminar</button>
         </td>
     </tr>
 }
@@ -115,6 +115,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            window.location.reload()
                         })
 
                     });
@@ -168,7 +169,7 @@
                         console.log(data.TITULO_REV);
                     });
 
-                    
+
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
 
@@ -179,7 +180,7 @@
                             let ID_CAT = $("#ID_CAT").val();
                             let PRECIO = $("#PRECIO").val();
 
-                        console.log("Result:", ID_REV,TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
+
                         var data = {
                             ID_REV: ID_REV,
                             TITULO_REV: TITULO_REV,
@@ -200,15 +201,17 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            window.location.reload()
                         })
 
                     });
-                    
+
                 }
             })
         }
 
-        function mostrareliminar() {
+        function mostrareliminar(Id = 0)
+        {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -227,15 +230,31 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
+
+                    @*var url = "@Url.Action("Delete","Home")";
+
+                    $.get(url, { Id: Id }.done((data) => {
+                        console.log("borrado");
+                    }).fail((data) => {
+                        console.log("no borrado");
+                    });*@
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/Delete",
+                        data: { Id: Id },
+                        success: function (respose) {
+                            console.log(respose);
+                        }
+                    })
+
                     swalWithBootstrapButtons.fire(
                         'Borrado!',
                         'Tu archivo a sido borrado',
                         'Listo'
                     )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
+                    window.location.reload()
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelado',
                         'Salvaste a este registro:)',

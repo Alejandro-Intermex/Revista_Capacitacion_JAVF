@@ -58,22 +58,11 @@ namespace Revista_Capacitacion.Services
             }
         }
         [HttpGet]
-        public ActionResult Delete(int id)
+        public JsonResult Delete(int Id)
         {
-            try
-            {
-                ConnectionDB emprepo = new ConnectionDB();
-                if (emprepo.Delete(id))
-                {
-                    ViewBag.AlertMsg = "Revista borrada";
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            ConnectionDB cnx = new ConnectionDB();
 
+            return Json(cnx.Delete(Id), JsonRequestBehavior.AllowGet);
+        }
     }
 }
