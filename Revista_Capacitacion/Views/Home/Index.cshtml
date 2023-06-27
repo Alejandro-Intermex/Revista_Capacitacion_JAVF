@@ -54,7 +54,7 @@
             @Html.DisplayFor(modelItem => item.PRECIO)
         </td>
         <td>
-            <button class="btn btn-primary" onclick="mostrareditar()">Editar</button> |
+            <button class="btn btn-primary" onclick="mostrareditar(@item.ID_REV)">Editar</button> |
             <button class="btn btn-primary" onclick="mostrareliminar()">Eliminar</button>
         </td>
     </tr>
@@ -122,20 +122,21 @@
             })
         }
 
-        function mostrareditar(Id = 0) {
-            let titulo = "Agregar";
+        function mostrareditar(Id = 0)
+        {
+            let titulo = "123"
             if (Id > 0) {
                 titulo = "Editar";
             }
             let HTML =
                 `
-                    <input type="email" class="form-control" id="TITUO_REV" aria-describedby="emailHelp">
+                    
+                    <input type="email" class="form-control" id="TITULO_REV" aria-describedby="emailHelp">
                     <input type="email" class="form-control" id="CB" aria-describedby="emailHelp">
                     <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
                     <input type="email" class="form-control" id="ID_CAT" aria-describedby="emailHelp">
-                    <input type="email" class="form-control" id="precio" aria-describedby="emailHelp">
-
-        <button id="Aceptar" class="btn">Aceptar</button>
+                    <input type="email" class="form-control" id="PRECIO" aria-describedby="emailHelp">
+                    <button id="Aceptar" class="btn">Aceptar</button>
                 `;
             Swal.fire({
                 title: titulo,
@@ -146,27 +147,62 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
-                    document.querySelector("#Aceptar").addEventListener("click", () => {
-                        let Nombre = $("#nombre").val();
-                        let Edad = $("#edad").val();
-                        let Fecha = $("#fecha").val();
 
-                        console.log("Result: ", Nombre, Edad, Fecha, Id);
-
-                        $.get("/Pedidos/GetRoles", { Fecha: Fecha, Nombre: Nombre }).done((data) => {
-                            console.log(data);
-                        }).fail((data) => {
-                            Swal.fire({ html: data.responseText });
-                            console.log(data);
-                        });
-
+                    var url = "@Url.Action("Edit", "Home")";
+                    console.log(Id);
+                    $.get(url, {Id : Id}).done((data) => {
+                        console.log(data.TITULO_REV);
+                        console.log(data.CB);
+                        console.log(data.FECHA_CIRCULACION);
+                        console.log(data.ID_CAT);
+                        console.log(data.PRECIO);
+                                                                                        
+                        
+                        $("#TITULO_REV").val(data.TITULO_REV);
+                        $("#CB").val(data.CB);
+                        $("#FECHA_CIRCULACION").val(data.FECHA_CIRCULACION);
+                        $("#ID_CAT").val(data.ID_CAT);
+                        $("#PRECIO").val(data.PRECIO);
+                    }).fail((data) => {
+                        console.log(data.TITULO_REV);
                     });
 
-                    if (Id > 0) {
-                        $("#nombre").val("David");
-                        $("#edad").val(31);
-                        $("#fecha").val("31-23-53");
-                    }
+                    console.log("despues");
+
+                    document.querySelector("#Aceptar").addEventListener("click", () => {
+
+                            let ID_REV = $("#ID_REV").val();
+                            let TITULO_REV = $("#TITULO_REV").val();
+                            let CB = $("#CB").val();
+                            let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
+                            let ID_CAT = $("#ID_CAT").val();
+                            let PRECIO = $("#PRECIO").val();
+
+                        console.log("Result:", ID_REV,TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
+                        var data = {
+                            ID_REV: ID_REV,
+                            TITULO_REV: TITULO_REV,
+                            CB: CB,
+                            FECHA_CIRCULACION: FECHA_CIRCULACION,
+                            ID_CAT: ID_CAT,
+                            PRECIO: PRECIO
+                        }
+                        var url =  "@Url.Action("Edit2", "Home")";
+
+                        console.log(data)
+
+                        $.post(url, data).done(function (e) {
+                            console.log(e);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Revista guardada con éxito!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        })
+
+                    });
+                    
                 }
             })
         }

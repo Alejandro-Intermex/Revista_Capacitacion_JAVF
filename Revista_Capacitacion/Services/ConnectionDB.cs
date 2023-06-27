@@ -99,6 +99,36 @@ namespace Revista_Capacitacion.Services
                 return false;
             }
         }
+
+        public List<REVISTAS> View(int id)
+        {
+            connection();
+            List<REVISTAS> EmpList2 = new List<REVISTAS>();
+            SqlCommand con = new SqlCommand("SpCrudRevista", conec);
+            con.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(con);
+            DataTable dt = new DataTable();
+            con.Parameters.AddWithValue("@ID_REV", id);
+            con.Parameters.AddWithValue("@Accion", "Editar2");
+            conec.Open();
+            da.Fill(dt);
+            conec.Close();
+
+            EmpList2 = (from DataRow dr in dt.Rows
+                        select new REVISTAS()
+                        {
+                            ID_REV = Convert.ToInt32(dr["ID_REV"]),
+                            TITULO_REV = Convert.ToString(dr["TITULO_REV"]),
+                            CB = Convert.ToString(dr["CB"]),
+                            FECHA_CIRCULACION = Convert.ToDateTime(dr["FECHA_CIRCULACION"]),
+                            ID_CAT = Convert.ToInt32(dr["ID_CAT"]),
+                            PRECIO = Convert.ToDouble(dr["PRECIO"]),
+                            ROW_CREATE = Convert.ToDateTime(dr["ROW_CREATE"])
+                        }).ToList();
+
+            return EmpList2;
+        }
+
         public bool Delete(int id)
         {
             connection();

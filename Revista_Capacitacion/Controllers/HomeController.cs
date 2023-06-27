@@ -27,7 +27,6 @@ namespace Revista_Capacitacion.Services
             return View();
         }
 
-
         public bool Create2(REVISTAS model)
         {
             ConnectionDB cnx = new ConnectionDB();
@@ -36,23 +35,22 @@ namespace Revista_Capacitacion.Services
         }
 
         [HttpGet]
-        public ActionResult Edit(int id = 0)
+        public JsonResult Edit(int Id = 0)
         {
             ConnectionDB emprepo = new ConnectionDB();
 
-            return View(emprepo.Index().Find(model => model.ID_REV == id));
+            return Json(emprepo.View(Id)[0], JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult Edit(int id, REVISTAS obj)
+
+        public ActionResult Edit2(REVISTAS obj)
         {
             try
             {
                 ConnectionDB emprepo = new ConnectionDB();
                 emprepo.Edit(obj);
-
-
-                //return View(emprepo.Index().Find(model => model.ID_REV == id));E
-                return RedirectToAction("Index");
+                //return View(emprepo.Index().Find(model => model.ID_REV == ob));
+                return View("Index", emprepo);
             }
             catch
             {
