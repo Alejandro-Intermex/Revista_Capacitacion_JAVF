@@ -130,7 +130,7 @@
             }
             let HTML =
                 `
-                    
+                    <input type="email" class="form-control" id="ID_REV" aria-describedby="emailHelp" readonly onmousedown="return false;">
                     <input type="email" class="form-control" id="TITULO_REV" aria-describedby="emailHelp">
                     <input type="email" class="form-control" id="CB" aria-describedby="emailHelp">
                     <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
@@ -150,14 +150,15 @@
 
                     var url = "@Url.Action("Edit", "Home")";
                     console.log(Id);
-                    $.get(url, {Id : Id}).done((data) => {
+                    $.get(url, { Id: Id }).done((data) => {
+                        console.log(ID_REV)
                         console.log(data.TITULO_REV);
                         console.log(data.CB);
                         console.log(data.FECHA_CIRCULACION);
                         console.log(data.ID_CAT);
                         console.log(data.PRECIO);
-                                                                                        
-                        
+
+                        $("#ID_REV").val(data.ID_REV);
                         $("#TITULO_REV").val(data.TITULO_REV);
                         $("#CB").val(data.CB);
                         $("#FECHA_CIRCULACION").val(data.FECHA_CIRCULACION);
@@ -167,7 +168,7 @@
                         console.log(data.TITULO_REV);
                     });
 
-                    console.log("despues");
+                    
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
 
