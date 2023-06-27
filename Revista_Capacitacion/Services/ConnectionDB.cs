@@ -67,8 +67,8 @@ namespace Revista_Capacitacion.Services
                            CB = Convert.ToString(dr["CB"]),
                            FECHA_CIRCULACION = Convert.ToDateTime(dr["FECHA_CIRCULACION"]),
                            ID_CAT = Convert.ToInt32(dr["ID_CAT"]),
-                           ROW_CREATE = Convert.ToDateTime(dr["ROW_CREATE"]),
-                           PRECIO = Convert.ToDouble(dr["PRECIO"])
+                           PRECIO = Convert.ToDouble(dr["PRECIO"]),
+                           ROW_CREATE = Convert.ToDateTime(dr["ROW_CREATE"])
                        }).ToList();
 
             return EmpList;
