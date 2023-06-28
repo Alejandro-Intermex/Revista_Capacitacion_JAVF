@@ -73,6 +73,9 @@
 @section Scripts
     {
     <script>
+const { queue } = require("jquery");
+const { template } = require("modernizr");
+
 
         $(function () {
             $("#gridContainer").dxDataGrid({
@@ -125,7 +128,7 @@
                         cellTemplate: function (container, options) {
                             $('<div>')
                                 .append(`<button class="btn btn-primary" onclick="mostrareditar(${options.data.ID_REV})">Editar</button>`)
-                            .appendTo(container);
+                                .appendTo(container);
                         }
                     },
                     {
@@ -135,11 +138,22 @@
                                 .append(`<button class="btn btn-primary" onclick="mostrareliminar(${options.data.ID_REV})">Eliminar</button>`)
                                 .appendTo(container);
                         }
-                    },
+                    }
 
                 ],
+                toolbar: {
+                    items: [{
+                        location: 'before',
+                        widget: 'dxButton',
+                        options: {
+                            text: 'Crear',
+                            width: 136,
+                        }
+                    },
+                    ],
+                },
 
-            });
+            }).dxDataGrid('instance');
         });
 
         function Create(id = 0) {
