@@ -73,10 +73,6 @@
 @section Scripts
     {
     <script>
-const { queue } = require("jquery");
-const { template } = require("modernizr");
-
-
         $(function () {
             $("#gridContainer").dxDataGrid({
                 dataSource: DataSource,
@@ -129,7 +125,7 @@ const { template } = require("modernizr");
                             $('<div>')
                                 .append(`<button class="btn btn-primary" onclick="mostrareditar(${options.data.ID_REV})">Editar</button>`)
                                 .appendTo(container);
-                        }
+                        },
                     },
                     {
                         caption: 'Eliminar',
@@ -137,23 +133,10 @@ const { template } = require("modernizr");
                             $('<div>')
                                 .append(`<button class="btn btn-primary" onclick="mostrareliminar(${options.data.ID_REV})">Eliminar</button>`)
                                 .appendTo(container);
-                        }
-                    }
-
-                ],
-                toolbar: {
-                    items: [{
-                        location: 'before',
-                        widget: 'dxButton',
-                        options: {
-                            text: 'Crear',
-                            width: 136,
-                        }
+                        },
                     },
-                    ],
-                },
-
-            }).dxDataGrid('instance');
+                ]
+            });
         });
 
         function Create(id = 0) {
@@ -366,8 +349,6 @@ const { template } = require("modernizr");
             })
         }
 
-
-
         var DataSource = new DevExpress.data.DataSource({
             store: new DevExpress.data.CustomStore({
                 key: "ID_REV",
@@ -375,13 +356,13 @@ const { template } = require("modernizr");
                 load: function (loadOptions) {
                     return $.getJSON('/Home/getRevistas');
                 },
-                insert: function (values) {
-                },
-                update: function (key, values) {
-                },
-                remove: function (key) {
+                //insert: function (values) {
+                //},
+                //update: function (key, values) {
+                //},
+                //remove: function (key) {
 
-                }
+                //}
             })
         });
     </script>
