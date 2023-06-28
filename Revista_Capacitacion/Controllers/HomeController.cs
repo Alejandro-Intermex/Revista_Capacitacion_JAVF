@@ -16,9 +16,17 @@ namespace Revista_Capacitacion.Services
         ////[HttpGet]
         public ActionResult Index()
         {
+            //ConnectionDB showlist = new ConnectionDB();
+            //ModelState.Clear();
+            //return View(showlist.Index());
+            return View();
+        }
+
+        public JsonResult getRevistas()
+        {
             ConnectionDB showlist = new ConnectionDB();
             ModelState.Clear();
-            return View(showlist.Index());
+            return Json(showlist.Index(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

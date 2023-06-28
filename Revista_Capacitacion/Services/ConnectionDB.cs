@@ -65,10 +65,10 @@ namespace Revista_Capacitacion.Services
                            ID_REV = Convert.ToInt32(dr["ID_REV"]),
                            TITULO_REV = Convert.ToString(dr["TITULO_REV"]),
                            CB = Convert.ToString(dr["CB"]),
-                           FECHA_CIRCULACION = Convert.ToDateTime(dr["FECHA_CIRCULACION"]),
+                           FECHA_CIRCULACION = Convert.ToString(dr["FECHA_CIRCULACION"]),
                            ID_CAT = Convert.ToInt32(dr["ID_CAT"]),
-                           PRECIO = Convert.ToDouble(dr["PRECIO"]),
-                           ROW_CREATE = Convert.ToDateTime(dr["ROW_CREATE"])
+                           PRECIO = Convert.ToInt32(dr["PRECIO"]),
+                           ROW_CREATE = Convert.ToString(dr["ROW_CREATE"])
                        }).ToList();
 
             return EmpList;
@@ -120,10 +120,10 @@ namespace Revista_Capacitacion.Services
                             ID_REV = Convert.ToInt32(dr["ID_REV"]),
                             TITULO_REV = Convert.ToString(dr["TITULO_REV"]),
                             CB = Convert.ToString(dr["CB"]),
-                            FECHA_CIRCULACION = Convert.ToDateTime(dr["FECHA_CIRCULACION"]),
+                            FECHA_CIRCULACION = Convert.ToString(dr["FECHA_CIRCULACION"]),
                             ID_CAT = Convert.ToInt32(dr["ID_CAT"]),
-                            PRECIO = Convert.ToDouble(dr["PRECIO"]),
-                            ROW_CREATE = Convert.ToDateTime(dr["ROW_CREATE"])
+                            PRECIO = Convert.ToInt32(dr["PRECIO"]),
+                            ROW_CREATE = Convert.ToString(dr["ROW_CREATE"])
                         }).ToList();
 
             return EmpList2;

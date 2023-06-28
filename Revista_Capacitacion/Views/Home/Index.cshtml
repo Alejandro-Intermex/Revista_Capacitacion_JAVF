@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Revista_Capacitacion.REVISTAS>
 
-<p>
+@*<p>
     <br />
     <button class="btn btn-primary" onclick="Create()">Crear</button>
 </p>
@@ -59,11 +59,89 @@
         </td>
     </tr>
 }
-</table>    
+</table>*@    
+
+<body class="dx-viewport">
+    <div class="container">
+        <div id="gridContainer"></div>
+    </div>
+</body>
+
+
+
 
 @section Scripts
     {
     <script>
+
+        $(function () {
+            $("#gridContainer").dxDataGrid({
+                dataSource: DataSource,
+                paging: {
+                    pageSize: 20,
+                },
+                remoteOperations: false,
+                searchPanel: {
+                    visible: true,
+                    highlightCaseSensitive: true,
+                },
+                allowColumnReordering: true,
+                rowAlternationEnabled: true,
+                showBorders: true,
+                columns: [
+                    {
+                        dataField: 'ID_REV',
+                        caption: 'REVISTA ID',
+                        dataType: 'number',
+                        alignment: 'right',
+                    },
+                    {
+                        dataField: 'TITULO_REV',
+                        caption: 'TITULO DE REVISTA',
+                        dataType: 'string',
+                        format: 'text',
+                        alignment: 'right',
+                    },
+                    {
+                        dataField: 'FECHA_CIRCULACION',
+                        dataType: 'string',
+                        format: 'text',
+                    },
+                    {
+                        dataField: 'ID_CAT',
+                        dataType: 'number',
+                    },
+                    {
+                        dataField: 'ROW_CREATE',
+                        dataType: 'string',
+                        format: 'text',
+                    },
+                    {
+                        dataField: 'PRECIO',
+                        dataType: 'number',
+                    },
+                    {
+                        caption: 'Editar',
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<button class="btn btn-primary" onclick="mostrareditar(${options.data.ID_REV})">Editar</button>`)
+                            .appendTo(container);
+                        }
+                    },
+                    {
+                        caption: 'Eliminar',
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<button class="btn btn-primary" onclick="mostrareliminar(${options.data.ID_REV})">Eliminar</button>`)
+                                .appendTo(container);
+                        }
+                    },
+
+                ],
+
+            });
+        });
+
         function Create(id = 0) {
             let titulo = "Agregar";
             if (id > 0) {
@@ -121,6 +199,8 @@
                                 timer: 1500
                             })
                             window.location.reload()
+                            //GridView1.DataBind();
+
                         })
 
                     });
@@ -181,6 +261,7 @@
                     });
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
+                        
                         window.location.reload();
                             let ID_REV = $("#ID_REV").val();
                             let TITULO_REV = $("#TITULO_REV").val();
@@ -188,7 +269,7 @@
                             let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
                             let ID_CAT = $("#ID_CAT").val();
                             let PRECIO = $("#PRECIO").val();
-                        
+
                         var data = {
                             ID_REV: ID_REV,
                             TITULO_REV: TITULO_REV,
@@ -207,7 +288,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            
+                            //GridView1.DataBind();
                         })
                     });
 
@@ -258,7 +339,9 @@
                         'Tu archivo a sido borrado',
                         'Listo'
                     )
-                    window.location.reload()
+
+                    //GridView1.DataBind();
+                    //window.location.reload()
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelado',
@@ -268,5 +351,24 @@
                 }
             })
         }
+
+
+
+        var DataSource = new DevExpress.data.DataSource({
+            store: new DevExpress.data.CustomStore({
+                key: "ID_REV",
+                loadMode: "raw",
+                load: function (loadOptions) {
+                    return $.getJSON('/Home/getRevistas');
+                },
+                insert: function (values) {
+                },
+                update: function (key, values) {
+                },
+                remove: function (key) {
+
+                }
+            })
+        });
     </script>
     }

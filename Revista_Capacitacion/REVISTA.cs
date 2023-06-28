@@ -17,10 +17,10 @@ namespace Revista_Capacitacion
         public int ID_REV { get; set; }
         public string TITULO_REV { get; set; }
         public string CB { get; set; }
-        public Nullable<System.DateTime> FECHA_CIRCULACION { get; set; }
+        public string FECHA_CIRCULACION { get; set; }
         public Nullable<int> ID_CAT { get; set; }
-        public Nullable<System.DateTime> ROW_CREATE { get; set; }
-        public Nullable<double> PRECIO { get; set; }
+        public string ROW_CREATE { get; set; }
+        public Nullable<int> PRECIO { get; set; }
 
         public List<REVISTAS> ShowallCustomer { get; set; }
 
