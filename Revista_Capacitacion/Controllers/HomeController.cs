@@ -22,6 +22,12 @@ namespace Revista_Capacitacion.Services
             return View();
         }
 
+        public JsonResult getCategorias()
+        {
+            ConnectionDB showlist = new ConnectionDB();
+            return Json(showlist.catego(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult getRevistas()
         {
             ConnectionDB showlist = new ConnectionDB();

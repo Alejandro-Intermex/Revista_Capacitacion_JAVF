@@ -75,6 +75,28 @@ namespace Revista_Capacitacion.Services
         }
         //TITULO = Convert.IsDBNull(dr["TITULO"]) ? "" : Convert.ToString(dr["TITULO"]),
 
+        public List<M_CATEGORIAS> catego()
+        {
+            connection();
+            List<M_CATEGORIAS> EmpList = new List<M_CATEGORIAS>();
+            SqlCommand com = new SqlCommand("SpCrudRevista", conec);
+            com.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(com);
+            DataTable dt = new DataTable();
+            com.Parameters.AddWithValue("@Accion", "categorias");
+            conec.Open();
+            da.Fill(dt);
+            conec.Close();
+
+            EmpList = (from DataRow dr in dt.Rows
+                       select new M_CATEGORIAS()
+                       {
+                           ID_CAT = Convert.ToInt32(dr["ID_CAT"]),
+                           NOMBRE_CAT = Convert.ToString(dr["NOMBRE_CAT"])
+                       }).ToList();
+            return EmpList;
+        }
+
         public bool Edit(REVISTAS obj)
         {
             connection();

@@ -176,8 +176,10 @@
                     <input type="email" class="form-control" id="CB" aria-describedby="emailHelp">
                     <label class"form-control">FECHA DE CREACION</label>
                     <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
-                    <label class"form-control">CATEGORIA ID</label>
+                    <label class"form-control">CATEGORIA ID</label><br/>
+                    <select name="select>
                     <input type="email" class="form-control" id="ID_CAT" aria-describedby="emailHelp">
+                    </select><br/>
                     <label class"form-control">PRECIO</label>
                     <input type="email" class="form-control" id="PRECIO" aria-describedby="emailHelp">
                     <button id="Aceptar" class="btn">Aceptar</button>
@@ -388,5 +390,22 @@
                 //}
             })
         });
+
+            var DataSourcecat = new DevExpress.data.DataSource({
+                store: new DevExpress.data.CustomStore({
+                    key: "ID_CAT",
+                    loadMode: "raw",
+                    load: function (loadOptions) {
+                        return $.getJSON('/Home/getCategorias');
+                    },
+                    //insert: function (values) {
+                    //},
+                    //update: function (key, values) {
+                    //},
+                    //remove: function (key) {
+
+                    //}
+                })
+            });
     </script>
     }
