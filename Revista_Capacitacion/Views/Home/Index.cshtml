@@ -102,6 +102,10 @@
                         alignment: 'right',
                     },
                     {
+                        dataField: 'CB',
+                        dataType: 'string',
+                    },
+                    {
                         dataField: 'FECHA_CIRCULACION',
                         dataType: 'string',
                         format: 'text',
@@ -192,7 +196,10 @@
                     <div id="lookup"></div><br/>
                     <label class"form-control">PRECIO</label>
                     <div id="simple"></div>
-                    <button id="Aceptar" class="btn">Aceptar</button>
+                    <div class="dx-fieldset">
+                    <div id="summary"></div>
+                    <div id="button"></div>
+                    </div>
                 `;
             Swal.fire({
                 title: titulo,
@@ -223,6 +230,11 @@
                         inputAttr: {
                             id: "CB"
                         }
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere titulo',
+                        }],
                     });
                     //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
@@ -234,6 +246,11 @@
                         inputAttr: {
                             id: "FECHA_CIRCULACION"
                         }
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere Fecha de Circulacion',
+                        }],
                     });
                     //lookup para la categoria
                     $('#lookup').dxLookup({
@@ -254,17 +271,40 @@
                             id: "PRECIO"
 
                         },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere Precio',
+                        }],
+                    });
+
+                    $('#form').on('submit', (e) => {
+                        DevExpress.ui.notify({
+                            message: 'You have submitted the form',
+                            position: {
+                                my: 'center top',
+                                at: 'center top',
+                            },
+                        }, 'success', 3000);
+
+                        e.preventDefault();
+                    });
+
+                    $('#button').dxButton({
+                        width: '100%',
+                        text: 'Registrar',
+                        type: 'success',
+                        useSubmitBehavior: true,
                     });
 
 
                    
 
-                    document.querySelector("#Aceptar").addEventListener("click", () => {
+                    document.querySelector("#button").addEventListener("click", () => {
 
                         let TITULO_REV = $("#TITULO_REV").val();
                         let CB = $("#CB").val();
                         let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                        //let ID_CAT = $("#ID_CAT").val("");
                         let PRECIO = $("#PRECIO").val();
                         let ID_CAT = $("#lookup").dxLookup("instance").option('value');
 
@@ -316,18 +356,21 @@
             let HTML =
                 `
                     <label class"form-control">ID REVISTA</label>
-                    <input type="email" class="form-control" id="ID_REV" aria-describedby="emailHelp" readonly onmousedown="return false;">
+                    <div id="disabled"></div>
                     <label class"form-control">TITULO REVISTA</label>
-                    <input type="email" class="form-control" id="TITULO_REV" aria-describedby="emailHelp">
-                    <label class"form-control">CODIGO DE BARRA</label>
-                    <input type="email" class="form-control" id="CB" aria-describedby="emailHelp">
-                    <label class"form-control">FECHA DE CIRCULACION</label>
-                    <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
-                    <label class"form-control">CATEGORIA ID</label>
-                    <input type="email" class="form-control" id="ID_CAT" aria-describedby="emailHelp">
+                    <div id="placeholder"></div>
+                    <label class"form-control">CODIGO DE BARRAS</label>
+                    <div id="placeholder2"></div>
+                    <label class"form-control">FECHA DE CREACION</label>
+                    <div id="default"></div>
+                    <label class"form-control">CATEGORIA ID</label><br/>
+                    <div id="lookup"></div><br/>
                     <label class"form-control">PRECIO</label>
-                    <input type="email" class="form-control" id="PRECIO" aria-describedby="emailHelp">
-                    <button id="Aceptar" class="btn">Aceptar</button>
+                    <div id="simple"></div>
+                    <div class="dx-fieldset">
+                    <div id="summary"></div>
+                    <div id="button"></div>
+                    </div>
                 `;
             Swal.fire({
                 title: titulo,
@@ -338,6 +381,101 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
+                    //textbox para el id de revista
+                    $('#disabled').dxTextBox({
+                        value: 'John Smith',
+                        disabled: true,
+                        inputAttr: { id: "ID_REV" },
+                    });
+                    //texbox para el titulo de la revista
+                    $('#placeholder').dxTextBox({
+                        
+                        label: "Titulo",
+                        labelMode: "static",
+                        inputAttr: {
+                            id: "TITULO_REV"
+                        },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere titulo',
+                        }],
+                    });
+                    //texbox para el Codigo de barra
+                    $('#placeholder2').dxTextBox({
+                        label: "Codigo de Barras",
+                        labelMode: "static",
+                        inputAttr: {
+                            id: "CB"
+                        }
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere titulo',
+                        }],
+                    });
+                    //DATEBOX para la fecha de circulacion
+                    $('#default').dxDateBox({
+                        label: "Fecha",
+                        labelMode: "static",
+                        type: 'date',
+                        showClearButton: true,
+                        displayFormat: 'yyyy-MM-d',
+                        useMaskBehavior: true,
+                        inputAttr: {
+                            id: "FECHA_CIRCULACION"
+                        }
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere Fecha de Circulacion',
+                        }],
+                    });
+                    //lookup para la categoria
+                    $('#lookup').dxLookup({
+                        dataSource: DataSourcecat,
+                        valueExpr: "ID_CAT",
+                        displayExpr: 'NOMBRE_CAT',
+                        dropDownOptions: {
+                            title: 'Selecciona Categoria',
+                        },
+                        inputAttr: {
+                            id: "ID_CAT"
+                        },
+                    });
+                    //NUMBERBOX para el precio
+                    $('#simple').dxNumberBox({
+                        label: "Precio",
+                        labelMode: "static",
+                        inputAttr: {
+
+                            id: "PRECIO"
+
+                        },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere Precio',
+                        }],
+                    });
+                    $('#form').on('submit', (e) => {
+                        DevExpress.ui.notify({
+                            message: 'You have submitted the form',
+                            position: {
+                                my: 'center top',
+                                at: 'center top',
+                            },
+                        }, 'success', 3000);
+
+                        e.preventDefault();
+                    });
+
+                    $('#button').dxButton({
+                        width: '100%',
+                        text: 'Actualizar',
+                        type: 'success',
+                        useSubmitBehavior: true,
+                    });
 
                     var url = "@Url.Action("Edit", "Home")";
                     console.log(Id);
@@ -359,7 +497,7 @@
                         console.log(data.TITULO_REV);
                     });
 
-                    document.querySelector("#Aceptar").addEventListener("click", () => {
+                    document.querySelector("#button").addEventListener("click", () => {
 
                         window.location.reload();
                             let ID_REV = $("#ID_REV").val();
