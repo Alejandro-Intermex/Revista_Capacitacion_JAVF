@@ -211,6 +211,11 @@
                         inputAttr: {
                             id: "TITULO_REV"
                         },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere titulo',
+                        }],
                     });
                     //texbox para el Codigo de barra
                     $('#placeholder2').dxTextBox({
@@ -238,14 +243,20 @@
                         dropDownOptions: {
                             title: 'Selecciona Categoria',
                         },
-                        placeholder: 'Selecciona Categoria',
+                        inputAttr: {
+                            id: "ID_CAT"
+                        },
                     });
                     //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
                         inputAttr: {
+                           
                             id: "PRECIO"
+
                         },
                     });
+
+
                    
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
@@ -253,8 +264,9 @@
                         let TITULO_REV = $("#TITULO_REV").val();
                         let CB = $("#CB").val();
                         let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                        let ID_CAT = $("#ID_CAT").val();
+                        //let ID_CAT = $("#ID_CAT").val("");
                         let PRECIO = $("#PRECIO").val();
+                        let ID_CAT = $("#lookup").dxLookup("instance").option('value');
 
                         console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
                         var data = {
