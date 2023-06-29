@@ -185,7 +185,7 @@
                     <label class"form-control">TITULO REVISTA</label>
                     <div id="placeholder"></div>
                     <label class"form-control">CODIGO DE BARRAS</label>
-                    <div id="placeholder"></div>
+                    <div id="placeholder2"></div>
                     <label class"form-control">FECHA DE CREACION</label>
                     <div id="default"></div>
                     <label class"form-control">CATEGORIA ID</label><br/>
@@ -205,21 +205,30 @@
                 didRender: () => {
                     //texbox para el titulo de la revista
                     $('#placeholder').dxTextBox({
-                        placeholder: 'Enter full name here...',
-                        inputAttr: { 'aria-label': 'Full Name' },
+                        placeholder: 'Ingresa Titulo de Revista',
+                        label: "Titulo",
+                        labelMode: "floating",
+                        inputAttr: {
+                            id: "TITULO_REV"
+                        },
                     });
                     //texbox para el Codigo de barra
-                    $('#placeholder').dxTextBox({
-                        placeholder: 'Enter full name here...',
-                        inputAttr: { 'aria-label': 'Full Name' },
+                    $('#placeholder2').dxTextBox({
+                        placeholder: 'Ingresa Codigo de Barras',
+                        inputAttr: {
+                            id: "CB"
+                        }
                     });
-                    //texbox para la fecha de circulacion
+                    //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
-                        placeholder: '12/31/2018, 2:52 PM',
-                        type: 'datetime',
+                        placeholder: 'Ingresa la Fecha de Circulación',
+                        type: 'date',
                         showClearButton: true,
+                        displayFormat: 'yyyy-MM-d',
                         useMaskBehavior: true,
-                        inputAttr: { 'aria-label': 'Date Time' },
+                        inputAttr: {
+                            id: "FECHA_CIRCULACION"
+                        }
                     });
                     //lookup para la categoria
                     $('#lookup').dxLookup({
@@ -231,19 +240,21 @@
                         },
                         placeholder: 'Selecciona Categoria',
                     });
-                    //texbox para el precio
+                    //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
-                        inputAttr: { 'aria-label': 'Simple' },
+                        inputAttr: {
+                            id: "PRECIO"
+                        },
                     });
                    
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
 
-                            let TITULO_REV = $("#TITULO_REV").val();
-                            let CB = $("#CB").val();
-                            let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                            let ID_CAT = $("#lookup").val();
-                            let PRECIO = $("#PRECIO").val();
+                        let TITULO_REV = $("#TITULO_REV").val();
+                        let CB = $("#CB").val();
+                        let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
+                        let ID_CAT = $("#ID_CAT").val();
+                        let PRECIO = $("#PRECIO").val();
 
                         console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
                         var data = {
