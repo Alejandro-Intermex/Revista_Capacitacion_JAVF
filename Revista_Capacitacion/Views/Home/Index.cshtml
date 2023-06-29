@@ -168,6 +168,18 @@
             if (id > 0) {
                 titulo = "Editar";
             }
+            var items = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/getCategorias",
+                success: function (respose) {
+                    console.log(respose);
+                    items = respose;
+                }
+            })
+
+
             let HTML =
                 `
                     <label class"form-control">TITULO REVISTA</label>
@@ -177,9 +189,7 @@
                     <label class"form-control">FECHA DE CREACION</label>
                     <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
                     <label class"form-control">CATEGORIA ID</label><br/>
-                    <select name="select>
-                    <input type="email" class="form-control" id="ID_CAT" aria-describedby="emailHelp">
-                    </select><br/>
+                    <div id="lookup"></div><br/>
                     <label class"form-control">PRECIO</label>
                     <input type="email" class="form-control" id="PRECIO" aria-describedby="emailHelp">
                     <button id="Aceptar" class="btn">Aceptar</button>
@@ -193,12 +203,44 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
+                    
+                    $('#lookup').dxLookup({
+                        dataSource: DataSourcecat,
+                        valueExpr: "ID_CAT",
+                        displayExpr: 'NOMBRE_CAT',
+                        dropDownOptions: {
+                            title: 'Selecciona Categoria',
+                        },
+                        placeholder: 'Selecciona Categoria',
+                        //itemTemplate(M_CATEGORIAS) {
+                        //    return getTemplateMarkup(M_CATEGORIAS, 'ID_CAT');
+                        //},
+
+                    });
+                    //$(function (DataSourcecat) {
+
+                        
+
+                    //    function getTemplateMarkup(M_CATEGORIAS, lookup) {
+                    //        return `<div class='${lookup}'><div>${M_CATEGORIAS.ID_CAT} ${M_CATEGORIAS.NOMBRE_CAT}</div></div>`;
+                    //    }
+
+                    //    function getDisplayExpr(item) {
+                    //        if (!item) {
+                    //            return '';
+                               
+                    //        }
+                    //        return `${item.ID_CAT} ${item.NOMBRE_CAT}`;
+                            
+                    //    }
+                    //});
+
                     document.querySelector("#Aceptar").addEventListener("click", () => {
 
                             let TITULO_REV = $("#TITULO_REV").val();
                             let CB = $("#CB").val();
                             let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                            let ID_CAT = $("#ID_CAT").val();
+                            let ID_CAT = $("#lookup").val();
                             let PRECIO = $("#PRECIO").val();
 
                         console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
@@ -221,7 +263,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            
+
 
                         })
 
@@ -229,6 +271,16 @@
                 }
             })
         }
+
+        var DataSourcecat = new DevExpress.data.DataSource({
+            store: new DevExpress.data.CustomStore({
+                key: "ID_CAT",
+                loadMode: "raw",
+                load: function (loadOptions) {
+                    return $.getJSON('/Home/getCategorias/');
+                },
+            })
+        });
 
         function mostrareditar(Id = 0)
         {
@@ -283,7 +335,7 @@
                     });
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
-                        
+
                         window.location.reload();
                             let ID_REV = $("#ID_REV").val();
                             let TITULO_REV = $("#TITULO_REV").val();
@@ -391,21 +443,6 @@
             })
         });
 
-            var DataSourcecat = new DevExpress.data.DataSource({
-                store: new DevExpress.data.CustomStore({
-                    key: "ID_CAT",
-                    loadMode: "raw",
-                    load: function (loadOptions) {
-                        return $.getJSON('/Home/getCategorias');
-                    },
-                    //insert: function (values) {
-                    //},
-                    //update: function (key, values) {
-                    //},
-                    //remove: function (key) {
 
-                    //}
-                })
-            });
     </script>
     }

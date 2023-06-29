@@ -97,6 +97,7 @@ namespace Revista_Capacitacion.Services
             return EmpList;
         }
 
+
         public bool Edit(REVISTAS obj)
         {
             connection();
