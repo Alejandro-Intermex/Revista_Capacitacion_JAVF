@@ -183,15 +183,15 @@
             let HTML =
                 `
                     <label class"form-control">TITULO REVISTA</label>
-                    <input type="email" class="form-control" id="TITULO_REV" aria-describedby="emailHelp">
+                    <div id="placeholder"></div>
                     <label class"form-control">CODIGO DE BARRAS</label>
-                    <input type="email" class="form-control" id="CB" aria-describedby="emailHelp">
+                    <div id="placeholder"></div>
                     <label class"form-control">FECHA DE CREACION</label>
-                    <input type="email" class="form-control" id="FECHA_CIRCULACION" aria-describedby="emailHelp">
+                    <div id="default"></div>
                     <label class"form-control">CATEGORIA ID</label><br/>
                     <div id="lookup"></div><br/>
                     <label class"form-control">PRECIO</label>
-                    <input type="email" class="form-control" id="PRECIO" aria-describedby="emailHelp">
+                    <div id="simple"></div>
                     <button id="Aceptar" class="btn">Aceptar</button>
                 `;
             Swal.fire({
@@ -203,7 +203,25 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
-                    
+                    //texbox para el titulo de la revista
+                    $('#placeholder').dxTextBox({
+                        placeholder: 'Enter full name here...',
+                        inputAttr: { 'aria-label': 'Full Name' },
+                    });
+                    //texbox para el Codigo de barra
+                    $('#placeholder').dxTextBox({
+                        placeholder: 'Enter full name here...',
+                        inputAttr: { 'aria-label': 'Full Name' },
+                    });
+                    //texbox para la fecha de circulacion
+                    $('#default').dxDateBox({
+                        placeholder: '12/31/2018, 2:52 PM',
+                        type: 'datetime',
+                        showClearButton: true,
+                        useMaskBehavior: true,
+                        inputAttr: { 'aria-label': 'Date Time' },
+                    });
+                    //lookup para la categoria
                     $('#lookup').dxLookup({
                         dataSource: DataSourcecat,
                         valueExpr: "ID_CAT",
@@ -212,28 +230,12 @@
                             title: 'Selecciona Categoria',
                         },
                         placeholder: 'Selecciona Categoria',
-                        //itemTemplate(M_CATEGORIAS) {
-                        //    return getTemplateMarkup(M_CATEGORIAS, 'ID_CAT');
-                        //},
-
                     });
-                    //$(function (DataSourcecat) {
-
-                        
-
-                    //    function getTemplateMarkup(M_CATEGORIAS, lookup) {
-                    //        return `<div class='${lookup}'><div>${M_CATEGORIAS.ID_CAT} ${M_CATEGORIAS.NOMBRE_CAT}</div></div>`;
-                    //    }
-
-                    //    function getDisplayExpr(item) {
-                    //        if (!item) {
-                    //            return '';
-                               
-                    //        }
-                    //        return `${item.ID_CAT} ${item.NOMBRE_CAT}`;
-                            
-                    //    }
-                    //});
+                    //texbox para el precio
+                    $('#simple').dxNumberBox({
+                        inputAttr: { 'aria-label': 'Simple' },
+                    });
+                   
 
                     document.querySelector("#Aceptar").addEventListener("click", () => {
 
