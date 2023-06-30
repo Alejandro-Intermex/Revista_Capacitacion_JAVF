@@ -322,16 +322,15 @@
 
                         $.post(url, data).done(function (e) {
                             console.log(e);
+                            CargaDinamica(e, "Add", "gridContainer", "/Home/getRevistas?ID_REV=" + e);
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Revista guardada con éxito!',
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-
-
+                            window.location.reload();
                         })
-
                     });
                 }
             })
@@ -383,7 +382,6 @@
                 didRender: () => {
                     //textbox para el id de revista
                     $('#disabled').dxTextBox({
-                        value: 'John Smith',
                         disabled: true,
                         inputAttr: { id: "ID_REV" },
                     });
@@ -498,8 +496,7 @@
                     });
 
                     document.querySelector("#button").addEventListener("click", () => {
-
-                        window.location.reload();
+                        
                             let ID_REV = $("#ID_REV").val();
                             let TITULO_REV = $("#TITULO_REV").val();
                             let CB = $("#CB").val();
@@ -515,18 +512,22 @@
                             ID_CAT: ID_CAT,
                             PRECIO: PRECIO
                         }
-                        var url =  "@Url.Action("Edit2", "Home")";
+                        var url = "@Url.Action("Edit2", "Home")";
 
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Revista guardada con éxito!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        
                         $.post(url, data).done(function (e) {
                             console.log(e);
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Revista guardada con éxito!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                            //GridView1.DataBind();
+                            CargaDinamica(e, "Edit", "gridContainer", "/Home/getRevistas?ID_REV=" + e);
+                      //GridView1.DataBind();
                         })
+                        
+                        window.location.reload();
                     });
 
                 }
@@ -554,20 +555,14 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    @*var url = "@Url.Action("Delete","Home")";
-
-                    $.get(url, { Id: Id }.done((data) => {
-                        console.log("borrado");
-                    }).fail((data) => {
-                        console.log("no borrado");
-                    });*@
-
                     $.ajax({
                         type: "GET",
                         url: "/Home/Delete",
                         data: { Id: Id },
                         success: function (respose) {
                             console.log(respose);
+                            /*CargaDinamica(respose, "delete", "gridContainer", "/Home/getRevistas?ID_REV=" + respose); respose*/
+                            window.location.reload()
                         }
                     })
 
@@ -578,7 +573,7 @@
                     )
 
                     //GridView1.DataBind();
-                    //window.location.reload()
+                    window.location.reload()
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelado',
@@ -606,6 +601,42 @@
             })
         });
 
-
+        const CargaDinamica = (ID_REV, Option, gridContainer, Url, data = null) => {
+            console.log("En carga dinamica:");
+            console.log("Id: " + ID_REV);
+            console.log("Option: " + Option);
+            console.log("Grid: " + gridContainer);
+            console.log("Url: " + Url);
+            console.log("data: " + data);
+            let ds = $("#" + gridContainer).dxDataGrid("getDataSource");
+            if (Option === "delete") {
+                ds.store().push([{ type: "remove", key: Number(ID_REV) }]);
+            } else {
+                if (data !== null) {
+                    console.log(data);
+                    if (Option === "Edit") {
+                        ds.store().push([{ type: "update", data: data, key: Number(ID_REV) }]);///Update
+                    } else if (Option === "Add") {
+                        ds.store().push([{ type: "insert", data: data, index: 0 }]);//Insert
+                    }
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: Url,
+                        dataType: 'json',
+                        async: false,
+                        success: (data) => {
+                            console.log(data[0]);
+                            if (Option === "Edit") {
+                                ds.store().push([{ type: "update", data: data[0], key: Number(ID_REV) }]);///Update
+                            } else if (Option === "Add") {
+                                ds.store().push([{ type: "insert", data: data[0], index: 0 }]);//Insert
+                            }
+                        },
+                    }).then((data) => {
+                    });
+                }
+            }
+        }
     </script>
     }

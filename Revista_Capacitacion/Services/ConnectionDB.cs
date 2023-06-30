@@ -33,11 +33,9 @@ namespace Revista_Capacitacion.Services
             conec.Open();
             int i = com.ExecuteNonQuery();
             conec.Close();
-            if (i >= 1)
+            if (i > 1)
             {
-
                 return true;
-
             }
             else
             {
