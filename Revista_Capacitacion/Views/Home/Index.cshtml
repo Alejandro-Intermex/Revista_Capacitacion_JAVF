@@ -186,6 +186,8 @@
 
             let HTML =
                 `
+                    <label class"form-control">ID REVISTA</label>
+                    <div id="disabled"></div>
                     <label class"form-control">TITULO REVISTA</label>
                     <div id="placeholder"></div>
                     <label class"form-control">CODIGO DE BARRAS</label>
@@ -210,6 +212,11 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
+                    //textbox para el id de revista
+                    $('#disabled').dxTextBox({
+                        disabled: true,
+                        inputAttr: { id: "ID_REV" },
+                    });
                     //texbox para el titulo de la revista
                     $('#placeholder').dxTextBox({
                         placeholder: 'Ingresa Titulo de Revista',
@@ -222,6 +229,10 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere titulo',
+                        }, {
+                            type: 'stringLength',
+                            min: 2,
+                            message: 'El Titulo puede llevar 2 simbolos',
                         }],
                     });
                     //texbox para el Codigo de barra
@@ -263,11 +274,16 @@
                         inputAttr: {
                             id: "ID_CAT"
                         },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere categoria',
+                        }],
                     });
                     //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
                         inputAttr: {
-                           
+
                             id: "PRECIO"
 
                         },
@@ -286,7 +302,6 @@
                                 at: 'center top',
                             },
                         }, 'success', 3000);
-
                         e.preventDefault();
                     });
 
@@ -297,19 +312,18 @@
                         useSubmitBehavior: true,
                     });
 
-
-                   
-
                     document.querySelector("#button").addEventListener("click", () => {
 
+                        let ID_REV = $("#ID_REV").val();
                         let TITULO_REV = $("#TITULO_REV").val();
                         let CB = $("#CB").val();
                         let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
                         let PRECIO = $("#PRECIO").val();
                         let ID_CAT = $("#lookup").dxLookup("instance").option('value');
 
-                        console.log("Result:", TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
+                        console.log("Result:",ID_REV, TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
                         var data = {
+                            ID_REV: ID_REV,
                             TITULO_REV: TITULO_REV,
                             CB: CB,
                             FECHA_CIRCULACION: FECHA_CIRCULACION,
@@ -322,14 +336,14 @@
 
                         $.post(url, data).done(function (e) {
                             console.log(e);
-                            CargaDinamica(e, "Add", "gridContainer", "/Home/getRevistas?ID_REV=" + e);
+                            CargaDinamica(e[0].ID_REV, "Add", "gridContainer", "", e[0]);
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Revista guardada con éxito!',
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            window.location.reload();
+                            //window.location.reload();
                         })
                     });
                 }
@@ -346,10 +360,10 @@
             })
         });
 
-        function mostrareditar(Id = 0)
+        function mostrareditar(ID_REV = 0)
         {
             let titulo = "123"
-            if (Id > 0) {
+            if (ID_REV > 0) {
                 titulo = "Editar";
             }
             let HTML =
@@ -387,7 +401,7 @@
                     });
                     //texbox para el titulo de la revista
                     $('#placeholder').dxTextBox({
-                        
+
                         label: "Titulo",
                         labelMode: "static",
                         inputAttr: {
@@ -476,33 +490,34 @@
                     });
 
                     var url = "@Url.Action("Edit", "Home")";
-                    console.log(Id);
-                    $.get(url, { Id: Id }).done((data) => {
-                        console.log(ID_REV)
-                        console.log(data.TITULO_REV);
-                        console.log(data.CB);
-                        console.log(data.FECHA_CIRCULACION);
-                        console.log(data.ID_CAT);
-                        console.log(data.PRECIO);
+                    console.log(ID_REV);
+                    $.get(url, { ID_REV: ID_REV }).done((data) => {
+                        //console.log(ID_REV)
+                        //console.log(data.TITULO_REV);
+                        //console.log(data.CB);
+                        //console.log(data.FECHA_CIRCULACION);
+                        //console.log(data.ID_CAT);
+                        //console.log(data.PRECIO);
 
                         $("#ID_REV").val(data.ID_REV);
                         $("#TITULO_REV").val(data.TITULO_REV);
                         $("#CB").val(data.CB);
                         $("#FECHA_CIRCULACION").val(data.FECHA_CIRCULACION);
-                        $("#ID_CAT").val(data.ID_CAT);
+                        $("#NOMBRE_CAT").val(data.NOMBRE_CAT);
                         $("#PRECIO").val(data.PRECIO);
                     }).fail((data) => {
                         console.log(data.TITULO_REV);
                     });
 
                     document.querySelector("#button").addEventListener("click", () => {
-                        
-                            let ID_REV = $("#ID_REV").val();
-                            let TITULO_REV = $("#TITULO_REV").val();
-                            let CB = $("#CB").val();
-                            let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                            let ID_CAT = $("#ID_CAT").val();
-                            let PRECIO = $("#PRECIO").val();
+
+
+                        let ID_REV = $("#ID_REV").val();
+                        let TITULO_REV = $("#TITULO_REV").val();
+                        let CB = $("#CB").val();
+                        let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
+                        let ID_CAT = $("#ID_CAT").val();
+                        let PRECIO = $("#PRECIO").val();
 
                         var data = {
                             ID_REV: ID_REV,
@@ -512,29 +527,29 @@
                             ID_CAT: ID_CAT,
                             PRECIO: PRECIO
                         }
+
+
                         var url = "@Url.Action("Edit2", "Home")";
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Revista guardada con éxito!',
-                            showConfirmButton: false,
-                            timer: 1500
+                        $.post(url, data).done(function () {
+
+                            CargaDinamica(ID_REV, "Edit", "gridContainer", "/Home/Edit?ID_REV=" + ID_REV);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Revista guardada con éxito!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
                         })
-                        
-                        $.post(url, data).done(function (e) {
-                            console.log(e);
-                            CargaDinamica(e, "Edit", "gridContainer", "/Home/getRevistas?ID_REV=" + e);
-                      //GridView1.DataBind();
-                        })
-                        
-                        window.location.reload();
+                        //window.location.reload();
                     });
 
                 }
             })
         }
 
-        function mostrareliminar(Id = 0)
+        function mostrareliminar(ID_REV = 0)
         {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -558,22 +573,20 @@
                     $.ajax({
                         type: "GET",
                         url: "/Home/Delete",
-                        data: { Id: Id },
+                        data: { ID_REV: ID_REV },
                         success: function (respose) {
                             console.log(respose);
-                            /*CargaDinamica(respose, "delete", "gridContainer", "/Home/getRevistas?ID_REV=" + respose); respose*/
-                            window.location.reload()
+                            CargaDinamica(ID_REV, "delete", "gridContainer", "/Home/Delete?ID_REV=" + ID_REV);
+                            //window.location.reload()
                         }
                     })
-
                     swalWithBootstrapButtons.fire(
                         'Borrado!',
                         'Tu archivo a sido borrado',
                         'Listo'
                     )
-
                     //GridView1.DataBind();
-                    window.location.reload()
+                    //window.location.reload()
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelado',
@@ -583,7 +596,6 @@
                 }
             })
         }
-
         var DataSource = new DevExpress.data.DataSource({
             store: new DevExpress.data.CustomStore({
                 key: "ID_REV",
@@ -626,9 +638,9 @@
                         dataType: 'json',
                         async: false,
                         success: (data) => {
-                            console.log(data[0]);
+                            console.log(data);
                             if (Option === "Edit") {
-                                ds.store().push([{ type: "update", data: data[0], key: Number(ID_REV) }]);///Update
+                                ds.store().push([{ type: "update", data: data, key: Number(ID_REV) }]);///Update
                             } else if (Option === "Add") {
                                 ds.store().push([{ type: "insert", data: data[0], index: 0 }]);//Insert
                             }
@@ -638,5 +650,6 @@
                 }
             }
         }
+
     </script>
     }

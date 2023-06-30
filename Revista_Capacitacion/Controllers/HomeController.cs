@@ -41,42 +41,41 @@ namespace Revista_Capacitacion.Services
             return View();
         }
 
-        public bool Create2(REVISTAS model)
+        public JsonResult Create2(REVISTAS obj)
         {
             ConnectionDB cnx = new ConnectionDB();
-            bool bandera = cnx.Create(model);
-            return bandera;
+            JsonResult result = Json(cnx.Create(obj), JsonRequestBehavior.AllowGet);
+            return result;
         }
 
+        //public bool Create2(REVISTAS model)
+        //{
+        //    ConnectionDB cnx = new ConnectionDB();
+        //    bool bandera = cnx.Create(model);
+        //    return bandera;
+        //}
+
         [HttpGet]
-        public JsonResult Edit(int Id = 0)
+        public JsonResult Edit(int ID_REV = 0)
         {
             ConnectionDB emprepo = new ConnectionDB();
 
-            return Json(emprepo.View(Id)[0], JsonRequestBehavior.AllowGet);
+            return Json(emprepo.View(ID_REV)[0], JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
 
-        public ActionResult Edit2(REVISTAS obj)
+        public void Edit2(REVISTAS obj)
         {
-            try
-            {
-                ConnectionDB emprepo = new ConnectionDB();
-                emprepo.Edit(obj);
-                //return View(emprepo.Index().Find(model => model.ID_REV == ob));
-                return View("Index", emprepo);
-            }
-            catch
-            {
-                return View();
-            }
+            ConnectionDB emprepo = new ConnectionDB();
+            emprepo.Edit(obj);
+            //return View(emprepo.Index().Find(model => model.ID_REV == ob));
         }
         [HttpGet]
-        public JsonResult Delete(int Id)
+        public JsonResult Delete(int ID_REV)
         {
             ConnectionDB cnx = new ConnectionDB();
 
-            return Json(cnx.Delete(Id), JsonRequestBehavior.AllowGet);
+            return Json(cnx.Delete(ID_REV), JsonRequestBehavior.AllowGet);
         }
     }
 }
