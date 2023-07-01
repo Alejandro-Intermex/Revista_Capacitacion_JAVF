@@ -453,7 +453,11 @@
                         inputAttr: {
                             id: "ID_CAT"
                         },
+                        //fieldTemplate(DataSourcecat) {
+                        //    return ()
+                        //},
                     });
+
                     //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
                         label: "Precio",
@@ -547,6 +551,10 @@
 
                 }
             })
+        }
+
+        function getTemplateMarkup(DataSourcecat, containerClass) {
+            return `<div class='${containerClass}'><div>${DataSourcecat.NOMBRE_CAT}</div></div>`;
         }
 
         function mostrareliminar(ID_REV = 0)
