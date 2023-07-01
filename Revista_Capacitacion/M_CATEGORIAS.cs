@@ -26,4 +26,13 @@ namespace Revista_Capacitacion
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REVISTAS> REVISTAS { get; set; }
     }
+
+    public partial class ENCABEZADO
+    {
+        public string NOMBRE_EMPRESA { get; set; }
+
+        public string TITULO { get; set; }
+
+        public string CREADOR { get; set; }
+    }
 }

@@ -102,6 +102,29 @@ namespace Revista_Capacitacion.Services
         }
 
 
+        public List<ENCABEZADO> enca()
+        {
+            connection();
+            List<ENCABEZADO> EmpList = new List<ENCABEZADO>();
+            SqlCommand com = new SqlCommand("SpCrudRevista", conec);
+            com.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(com);
+            DataTable dt = new DataTable();
+            com.Parameters.AddWithValue("@Accion", "encabezado");
+            conec.Open();
+            da.Fill(dt);
+            conec.Close();
+
+            EmpList = (from DataRow dr in dt.Rows
+                       select new ENCABEZADO()
+                       {
+                           NOMBRE_EMPRESA = Convert.ToString(dr["NOMBRE_EMPRESA"]),
+                           TITULO = Convert.ToString(dr["TITULO"]),
+                           CREADOR = Convert.ToString(dr["CREADOR"])
+                       }).ToList();
+            return EmpList;
+        }
+
         public bool Edit(REVISTAS obj)
         {
             connection();

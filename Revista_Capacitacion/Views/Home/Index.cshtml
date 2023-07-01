@@ -160,6 +160,17 @@
                                     Create()
                                 }
                             }
+                        }, {
+                            location: 'before',
+                            widget: 'dxButton',
+                            options: {
+                                hint: "Crystal Reports",
+                                icon: 'new',
+                                text: 'CRYSTAL',
+                                onClick: function () {
+                                    window.location.href = '/home/GenerateReport';
+                                }
+                            }
                         },
                     ],
                 },
@@ -185,6 +196,7 @@
 
             let HTML =
                 `
+                    <div id="form"></div>
                     <label class"form-control">ID REVISTA</label>
                     <div id="disabled"></div>
                     <label class"form-control">TITULO REVISTA</label>
@@ -211,6 +223,8 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
+
+
                     //textbox para el id de revista
                     $('#disabled').dxTextBox({
                         disabled: true,
@@ -343,13 +357,11 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-                            //window.location.reload();
                         })
                     });
                 }
             })
         }
-
         var DataSourcecat = new DevExpress.data.DataSource({
             store: new DevExpress.data.CustomStore({
                 key: "ID_CAT",
@@ -368,6 +380,7 @@
             }
             let HTML =
                 `
+                    <div id="form"></div>
                     <label class"form-control">ID REVISTA</label>
                     <div id="disabled"></div>
                     <label class"form-control">TITULO REVISTA</label>
@@ -394,6 +407,7 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
+
                     //textbox para el id de revista
                     $('#disabled').dxTextBox({
                         disabled: true,
@@ -443,20 +457,7 @@
                         }],
                     });
                     //lookup para la categoria
-                    $('#lookup').dxLookup({
-                        dataSource: DataSourcecat,
-                        valueExpr: "ID_CAT",
-                        displayExpr: 'NOMBRE_CAT',
-                        dropDownOptions: {
-                            title: 'Selecciona Categoria',
-                        },
-                        inputAttr: {
-                            id: "ID_CAT"
-                        },
-                        //fieldTemplate(DataSourcecat) {
-                        //    return ()
-                        //},
-                    });
+                   
 
                     //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
@@ -502,12 +503,22 @@
                         console.log(data.ID_CAT);
                         console.log(data.NOMBRE_CAT);
                         //console.log(data.PRECIO);
-
+                        $('#lookup').dxLookup({
+                            dataSource: DataSourcecat,
+                            valueExpr: "ID_CAT",
+                            value: data.ID_CAT,
+                            displayExpr: 'NOMBRE_CAT',
+                            dropDownOptions: {
+                                title: 'Selecciona Categoria',
+                            },
+                            inputAttr: {
+                                id: "ID_CAT"
+                            },
+                        });
                         $("#ID_REV").val(data.ID_REV);
                         $("#TITULO_REV").val(data.TITULO_REV);
                         $("#CB").val(data.CB);
                         $("#FECHA_CIRCULACION").val(data.FECHA_CIRCULACION);
-                        $("#ID_CAT").val(data.ID_CAT);
                         $("#PRECIO").val(data.PRECIO);
                     }).fail((data) => {
                         console.log(data.TITULO_REV);
@@ -520,7 +531,7 @@
                         let TITULO_REV = $("#TITULO_REV").val();
                         let CB = $("#CB").val();
                         let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
-                        let ID_CAT = $("#ID_CAT").val();
+                        let ID_CAT = $("#lookup").dxLookup("instance").option('value');
                         let PRECIO = $("#PRECIO").val();
 
                         var data = {
@@ -551,10 +562,6 @@
 
                 }
             })
-        }
-
-        function getTemplateMarkup(DataSourcecat, containerClass) {
-            return `<div class='${containerClass}'><div>${DataSourcecat.NOMBRE_CAT}</div></div>`;
         }
 
         function mostrareliminar(ID_REV = 0)

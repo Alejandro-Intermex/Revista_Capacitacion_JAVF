@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="aea39e9573824a628cf93e16cc460e80" Name="Diagram1">
-        <EntityTypeShape EntityType="CAPACITACIONModel.M_CATEGORIAS" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAPACITACIONModel.REVISTA" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPACITACIONModel.M_CATEGORIAS" Width="1.5" PointX="1.125" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CAPACITACIONModel.REVISTA" Width="1.5" PointX="4.375" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CAPACITACIONModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="CAPACITACIONModel.FK_ID_CAT" ManuallyRouted="false" />
       </Diagram>

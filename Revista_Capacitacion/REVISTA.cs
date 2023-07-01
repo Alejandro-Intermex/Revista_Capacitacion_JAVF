@@ -18,12 +18,10 @@ namespace Revista_Capacitacion
         public string TITULO_REV { get; set; }
         public string CB { get; set; }
         public string FECHA_CIRCULACION { get; set; }
-        public Nullable<int> ID_CAT { get; set; }
+        public int ID_CAT { get; set; }
         public string ROW_CREATE { get; set; }
-        public Nullable<int> PRECIO { get; set; }
-
-        public List<REVISTAS> ShowallCustomer { get; set; }
-
+        public int PRECIO { get; set; }
+    
         public virtual M_CATEGORIAS M_CATEGORIAS { get; set; }
     }
 }
