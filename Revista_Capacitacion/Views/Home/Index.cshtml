@@ -413,6 +413,10 @@
             if (ID_REV > 0) {
                 titulo = "Editar";
             }
+
+            const minDate = new Date();
+
+            minDate.setDate(minDate.getDate() - 1);
             let HTML =
                 `
                     <div id="form" action="your-action">
