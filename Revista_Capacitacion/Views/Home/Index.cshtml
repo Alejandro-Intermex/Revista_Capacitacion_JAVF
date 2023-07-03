@@ -193,25 +193,59 @@
                 }
             })
 
+            const minDate = new Date();
+
+            minDate.setDate(minDate.getDate() - 1);
 
             let HTML =
                 `
-                    <div id="form"></div>
-                    <label class"form-control">ID REVISTA</label>
-                    <div id="disabled"></div>
-                    <label class"form-control">TITULO REVISTA</label>
-                    <div id="placeholder"></div>
-                    <label class"form-control">CODIGO DE BARRAS</label>
-                    <div id="placeholder2"></div>
-                    <label class"form-control">FECHA DE CREACION</label>
-                    <div id="default"></div>
-                    <label class"form-control">CATEGORIA ID</label><br/>
-                    <div id="lookup"></div><br/>
-                    <label class"form-control">PRECIO</label>
-                    <div id="simple"></div>
-                    <div class="dx-fieldset">
-                    <div id="summary"></div>
-                    <div id="button"></div>
+                    <div id="form" action="your-action">
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id Revista</div>
+                                <div class="dx-field-value">
+                                    <div id="disabled">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">TITULO REVISTA</div>
+                                <div class="dx-field-value">
+                                    <div id="placeholder">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Codigo de Barras</div>
+                                <div class="dx-field-value">
+                                    <div id="placeholder2">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Fecha de Circulacion</div>
+                                <div class="dx-field-value">
+                                    <div id="default">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id de Categoria</div>
+                                <div class="dx-field-value">
+                                    <div id="lookup">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id de Categoria</div>
+                                <div class="dx-field-value">
+                                    <div id="simple">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-fieldset">
+                            <div id="summary"></div>
+                            <div id="button"></div>
+                        </div>
                     </div>
                 `;
             Swal.fire({
@@ -242,10 +276,6 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere titulo',
-                        }, {
-                            type: 'stringLength',
-                            min: 2,
-                            message: 'El Titulo puede llevar 2 simbolos',
                         }],
                     });
                     //texbox para el Codigo de barra
@@ -258,7 +288,15 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere titulo',
-                        }],
+                        },{
+                                type: 'stringLength',
+                                min: 13,
+                                message: 'El minimo de caracteres es de 13 digitos',
+                            }, {
+                                type: 'stringLength',
+                                max: 25,
+                                message: 'El maximo de caracteres es de 18 digitos',
+                            }],
                     });
                     //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
@@ -274,7 +312,11 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere Fecha de Circulacion',
-                        }],
+                        }, {
+                            type: 'range',
+                            min: minDate,
+                            message: 'La fecha tiene que ser apartir del dia de hoy',
+                            }],
                     });
                     //lookup para la categoria
                     $('#lookup').dxLookup({
@@ -308,13 +350,6 @@
                     });
 
                     $('#form').on('submit', (e) => {
-                        DevExpress.ui.notify({
-                            message: 'You have submitted the form',
-                            position: {
-                                my: 'center top',
-                                at: 'center top',
-                            },
-                        }, 'success', 3000);
                         e.preventDefault();
                     });
 
@@ -380,22 +415,53 @@
             }
             let HTML =
                 `
-                    <div id="form"></div>
-                    <label class"form-control">ID REVISTA</label>
-                    <div id="disabled"></div>
-                    <label class"form-control">TITULO REVISTA</label>
-                    <div id="placeholder"></div>
-                    <label class"form-control">CODIGO DE BARRAS</label>
-                    <div id="placeholder2"></div>
-                    <label class"form-control">FECHA DE CREACION</label>
-                    <div id="default"></div>
-                    <label class"form-control">CATEGORIA ID</label><br/>
-                    <div id="lookup"></div><br/>
-                    <label class"form-control">PRECIO</label>
-                    <div id="simple"></div>
-                    <div class="dx-fieldset">
-                    <div id="summary"></div>
-                    <div id="button"></div>
+                    <div id="form" action="your-action">
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id Revista</div>
+                                <div class="dx-field-value">
+                                    <div id="disabled">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">TITULO REVISTA</div>
+                                <div class="dx-field-value">
+                                    <div id="placeholder">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Codigo de Barras</div>
+                                <div class="dx-field-value">
+                                    <div id="placeholder2">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Fecha de Circulacion</div>
+                                <div class="dx-field-value">
+                                    <div id="default">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id de Categoria</div>
+                                <div class="dx-field-value">
+                                    <div id="lookup">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Id de Categoria</div>
+                                <div class="dx-field-value">
+                                    <div id="simple">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dx-fieldset">
+                            <div id="summary"></div>
+                            <div id="button"></div>
+                        </div>
                     </div>
                 `;
             Swal.fire({
@@ -415,9 +481,7 @@
                     });
                     //texbox para el titulo de la revista
                     $('#placeholder').dxTextBox({
-
-                        label: "Titulo",
-                        labelMode: "static",
+                        labelMode: "floating",
                         inputAttr: {
                             id: "TITULO_REV"
                         },
@@ -429,8 +493,7 @@
                     });
                     //texbox para el Codigo de barra
                     $('#placeholder2').dxTextBox({
-                        label: "Codigo de Barras",
-                        labelMode: "static",
+                        
                         inputAttr: {
                             id: "CB"
                         }
@@ -438,15 +501,23 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere titulo',
+                        }, {
+                            type: 'stringLength',
+                            min: 13,
+                            message: 'El minimo de caracteres es de 13 digitos',
+                        }, {
+                            type: 'stringLength',
+                            max: 25,
+                            message: 'El maximo de caracteres es de 18 digitos',
                         }],
                     });
                     //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
-                        label: "Fecha",
-                        labelMode: "static",
+                        
                         type: 'date',
                         showClearButton: true,
                         displayFormat: 'yyyy-MM-d',
+                        useMaskBehavior: true,
                         inputAttr: {
                             id: "FECHA_CIRCULACION"
                         }
@@ -454,15 +525,31 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere Fecha de Circulacion',
-                        }],
+                        }, {
+                                type: 'range',
+                                min: minDate,
+                                message: 'La fecha tiene que ser apartir del dia de hoy',
+                            }],
                     });
                     //lookup para la categoria
-                   
-
+                    $('#lookup').dxLookup({
+                        dataSource: DataSourcecat,
+                        valueExpr: "ID_CAT",
+                        displayExpr: 'NOMBRE_CAT',
+                        dropDownOptions: {
+                            title: 'Selecciona Categoria',
+                        },
+                        inputAttr: {
+                            id: "ID_CAT"
+                        },
+                    }).dxValidator({
+                        validationRules: [{
+                            type: 'required',
+                            message: 'Se requiere categoria',
+                        }],
+                    });
                     //NUMBERBOX para el precio
                     $('#simple').dxNumberBox({
-                        label: "Precio",
-                        labelMode: "static",
                         inputAttr: {
 
                             id: "PRECIO"
@@ -474,21 +561,14 @@
                             message: 'Se requiere Precio',
                         }],
                     });
-                    $('#form').on('submit', (e) => {
-                        DevExpress.ui.notify({
-                            message: 'You have submitted the form',
-                            position: {
-                                my: 'center top',
-                                at: 'center top',
-                            },
-                        }, 'success', 3000);
 
+                    $('#form').on('submit', (e) => {
                         e.preventDefault();
                     });
 
                     $('#button').dxButton({
                         width: '100%',
-                        text: 'Actualizar',
+                        text: 'Registrar',
                         type: 'success',
                         useSubmitBehavior: true,
                     });
@@ -503,6 +583,8 @@
                         console.log(data.ID_CAT);
                         console.log(data.NOMBRE_CAT);
                         //console.log(data.PRECIO);
+
+                        //lookup para la categoria
                         $('#lookup').dxLookup({
                             dataSource: DataSourcecat,
                             valueExpr: "ID_CAT",
