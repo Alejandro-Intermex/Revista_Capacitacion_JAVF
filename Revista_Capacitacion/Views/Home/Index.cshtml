@@ -107,7 +107,7 @@
                     },
                     {
                         dataField: 'FECHA_CIRCULACION',
-                        dataType: 'date',
+                        dataType: 'string',
                         format: 'yyyy-MM-d',
                     },
                     {
@@ -199,7 +199,7 @@
 
             let HTML =
                 `
-                    <div id="form" action="your-action">
+                     <div id="form" action="your-action">
                         <div class="dx-field">
                             <div class="dx-field-label">Id Revista</div>
                                 <div class="dx-field-value">
@@ -236,7 +236,7 @@
                                 </div>
                         </div>
                         <div class="dx-field">
-                            <div class="dx-field-label">Id de Categoria</div>
+                            <div class="dx-field-label">Precio</div>
                                 <div class="dx-field-value">
                                     <div id="simple">
                                     </div>
@@ -257,8 +257,6 @@
                 showConfirmButton: false,
                 focusConfirm: false,
                 didRender: () => {
-
-
                     //textbox para el id de revista
                     $('#disabled').dxTextBox({
                         disabled: true,
@@ -266,8 +264,6 @@
                     });
                     //texbox para el titulo de la revista
                     $('#placeholder').dxTextBox({
-                        placeholder: 'Ingresa Titulo de Revista',
-                        label: "Titulo",
                         labelMode: "floating",
                         inputAttr: {
                             id: "TITULO_REV"
@@ -280,7 +276,7 @@
                     });
                     //texbox para el Codigo de barra
                     $('#placeholder2').dxTextBox({
-                        placeholder: 'Ingresa Codigo de Barras',
+
                         inputAttr: {
                             id: "CB"
                         }
@@ -288,19 +284,19 @@
                         validationRules: [{
                             type: 'required',
                             message: 'Se requiere titulo',
-                        },{
-                                type: 'stringLength',
-                                min: 13,
-                                message: 'El minimo de caracteres es de 13 digitos',
-                            }, {
-                                type: 'stringLength',
-                                max: 25,
-                                message: 'El maximo de caracteres es de 18 digitos',
-                            }],
+                        }, {
+                            type: 'stringLength',
+                            min: 13,
+                            message: 'El minimo de caracteres es de 13 digitos',
+                        }, {
+                            type: 'stringLength',
+                            max: 25,
+                            message: 'El maximo de caracteres es de 18 digitos',
+                        }],
                     });
                     //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
-                        placeholder: 'Ingresa la Fecha de Circulación',
+
                         type: 'date',
                         showClearButton: true,
                         displayFormat: 'yyyy-MM-d',
@@ -316,7 +312,7 @@
                             type: 'range',
                             min: minDate,
                             message: 'La fecha tiene que ser apartir del dia de hoy',
-                            }],
+                        }],
                     });
                     //lookup para la categoria
                     $('#lookup').dxLookup({
@@ -359,7 +355,6 @@
                         type: 'success',
                         useSubmitBehavior: true,
                     });
-
                     
                     document.querySelector("#button").addEventListener("click", () => {
 
@@ -370,6 +365,10 @@
                         let PRECIO = $("#PRECIO").val();
                         let ID_CAT = $("#lookup").dxLookup("instance").option('value');
 
+                        if (TITULO_REV != "" || CB != "" || FECHA_CIRCULACION != "" || PRECIO != ""||ID_CAT != "") {
+                            console.log("Los campos no pueden estar vacios");
+                        }
+                        return
                         console.log("Result:",ID_REV, TITULO_REV, CB, FECHA_CIRCULACION, ID_CAT, PRECIO);
                         var data = {
                             ID_REV: ID_REV,
@@ -619,6 +618,10 @@
                         let FECHA_CIRCULACION = $("#FECHA_CIRCULACION").val();
                         let ID_CAT = $("#lookup").dxLookup("instance").option('value');
                         let PRECIO = $("#PRECIO").val();
+
+                        if (TITULO_REV != "" || CB != "" || FECHA_CIRCULACION != "" || ID_CAT != "" || PRECIO != "") {
+                            console.log("No se pued");
+                        }
 
                         var data = {
                             ID_REV: ID_REV,
