@@ -242,10 +242,7 @@
                                     </div>
                                 </div>
                         </div>
-                        <div class="dx-fieldset">
-                            <div id="summary"></div>
                             <div id="button"></div>
-                        </div>
                     </div>
                 `;
             Swal.fire({
@@ -355,7 +352,7 @@
                         type: 'success',
                         useSubmitBehavior: true,
                     });
-                    
+
                     document.querySelector("#button").addEventListener("click", () => {
 
                         let ID_REV = $("#ID_REV").val();
@@ -418,7 +415,7 @@
             minDate.setDate(minDate.getDate() - 1);
             let HTML =
                 `
-                    <div id="form" action="your-action">
+                    <form id="form" action="your-action">
                         <div class="dx-field">
                             <div class="dx-field-label">Id Revista</div>
                                 <div class="dx-field-value">
@@ -465,7 +462,7 @@
                             <div id="summary"></div>
                             <div id="button"></div>
                         </div>
-                    </div>
+                    </form>
                 `;
             Swal.fire({
                 title: titulo,
@@ -496,14 +493,11 @@
                     });
                     //texbox para el Codigo de barra
                     $('#placeholder2').dxTextBox({
-                        
-                        inputAttr: {
-                            id: "CB"
-                        }
+                        inputAttr: { id: "CB" },
                     }).dxValidator({
                         validationRules: [{
                             type: 'required',
-                            message: 'Se requiere titulo',
+                            message: 'Se requiere CB',
                         }, {
                             type: 'stringLength',
                             min: 13,
@@ -511,12 +505,13 @@
                         }, {
                             type: 'stringLength',
                             max: 25,
-                            message: 'El maximo de caracteres es de 18 digitos',
+                            message: 'El maximo de caracteres es de 25 digitos',
                         }],
                     });
+
                     //DATEBOX para la fecha de circulacion
                     $('#default').dxDateBox({
-                        
+
                         type: 'date',
                         showClearButton: true,
                         displayFormat: 'yyyy-MM-d',
@@ -565,16 +560,7 @@
                         }],
                     });
 
-                    $('#form').on('submit', (e) => {
-                        e.preventDefault();
-                    });
 
-                    $('#button').dxButton({
-                        width: '100%',
-                        text: 'Registrar',
-                        type: 'success',
-                        useSubmitBehavior: true,
-                    });
 
                     var url = "@Url.Action("Edit", "Home")";
                     console.log(ID_REV);
@@ -600,18 +586,16 @@
                                 id: "ID_CAT"
                             },
                         });
-                        $("#ID_REV").val(data.ID_REV);
-                        $("#TITULO_REV").val(data.TITULO_REV);
-                        $("#CB").val(data.CB);
-                        $("#FECHA_CIRCULACION").val(data.FECHA_CIRCULACION);
-                        $("#PRECIO").val(data.PRECIO);
+                        $("#disabled").dxTextBox('instance').option('value', data.ID_REV)
+                        $("#placeholder").dxTextBox('instance').option('value', data.TITULO_REV)
+                        $("#placeholder2").dxTextBox('instance').option('value', data.CB)
+                        $("#default").dxDateBox('instance').option('value', data.FECHA_CIRCULACION)
+                        $("#simple").dxNumberBox('instance').option('value', data.PRECIO)
                     }).fail((data) => {
                         console.log(data.TITULO_REV);
                     });
 
-                    document.querySelector("#button").addEventListener("click", () => {
-
-
+                    $('#form').on('submit', (e) => {
                         let ID_REV = $("#ID_REV").val();
                         let TITULO_REV = $("#TITULO_REV").val();
                         let CB = $("#CB").val();
@@ -619,9 +603,12 @@
                         let ID_CAT = $("#lookup").dxLookup("instance").option('value');
                         let PRECIO = $("#PRECIO").val();
 
-                        if (TITULO_REV != "" || CB != "" || FECHA_CIRCULACION != "" || ID_CAT != "" || PRECIO != "") {
-                            console.log("No se pued");
-                        }
+                            //if (TITULO_REV != "" || CB != "" || FECHA_CIRCULACION != "" || PRECIO != "" || ID_CAT != "") {
+                            //    console.log("Los campos no pueden estar vacios");
+                            //}
+
+                        console.log("EMTRAA")
+                        var url = "@Url.Action("Edit2", "Home")";
 
                         var data = {
                             ID_REV: ID_REV,
@@ -632,11 +619,7 @@
                             PRECIO: PRECIO
                         }
 
-
-                        var url = "@Url.Action("Edit2", "Home")";
-
                         $.post(url, data).done(function () {
-
                             CargaDinamica(ID_REV, "Edit", "gridContainer", "/Home/Edit?ID_REV=" + ID_REV);
                             Swal.fire({
                                 icon: 'success',
@@ -644,10 +627,16 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-
                         })
-                        //window.location.reload();
+                        e.preventDefault();
                     });
+
+                    $('#button').dxButton({
+                        width: '100%',
+                        text: 'Guardar',
+                        type: 'success',
+                        useSubmitBehavior: true,
+                    })
 
                 }
             })
